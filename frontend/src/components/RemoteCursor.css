@@ -1,0 +1,149 @@
+/* frontend/src/components/RemoteCursor.css */
+
+/* Your existing styles - keeping them intact */
+/* For Monaco Editor remote cursor (represented as a zero-length selection) */
+.remote-cursor {
+  /* Using a background color for a "block" cursor appearance */
+  background-color: rgba(255, 0, 0, 0.5); /* Example: Semi-transparent red */
+  /* Or for a caret-like appearance, a border might be used, but it's tricky with Monaco's rendering */
+  /* border-left: 2px solid red !important; */ /* Might need !important */
+  /* Ensure it's above other text but below the actual editor cursor */
+  z-index: 1000;
+}
+
+/* For Monaco Editor remote selection */
+
+
+/* For CodeMirror 6 remote cursor widget */
+/* .remote-cursor-widget {
+  display: inline-block;
+  width: 2px; 
+
+  background-color: blue; 
+  margin-left: -1px; 
+  margin-right: -1px;
+  vertical-align: text-bottom;
+
+  z-index: 20; 
+  position: relative; 
+} */
+
+/* You can define specific user colors for CM6 widgets if you pass user-specific classes */
+/* .user-X-cursor-widget { background-color: green; } */
+
+/* For CodeMirror 6 remote selection mark */
+.remote-selection {
+  background-color: rgba(0, 128, 0, 0.3); /* Example: Semi-transparent green */
+  /* mix-blend-mode: multiply; /* Optional: for blending with syntax highlighting */
+  z-index: 5; /* Below cursors */
+}
+
+.cursor-tooltip {
+  position: absolute;
+  z-index: 1000;
+  font-family: sans-serif;
+  pointer-events: none;
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.monaco-editor {
+  position: relative !important;
+}
+
+
+/* Keyframes for CodeMirror cursor blinking (if used) */
+/* @keyframes cm-blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+} */
+
+/* NEW ADDITIONS: y-monaco specific styles for remote selections and cursors */
+
+/* Y-Monaco remote selections - these are the actual classes y-monaco uses */
+.yRemoteSelection {
+/* Default fallback colors - will be overridden by dynamic styles */
+background-color: rgba(255, 255, 0, 0.3) !important;
+border: 1px solid rgba(255, 255, 0, 0.5) !important;
+border-radius: 2px !important;
+pointer-events: none !important;
+position: absolute !important;
+z-index: 1 !important;
+}
+
+/* Y-Monaco remote cursors */
+.yRemoteCursor {
+/* Default fallback color - will be overridden by dynamic styles */
+background-color: #ff0000 !important;
+width: 2px !important;
+position: absolute !important;
+pointer-events: none !important;
+z-index: 2 !important;
+animation: yjs-cursor-blink 1s infinite;
+}
+
+/* Y-Monaco cursor labels (usernames) */
+.yRemoteCursorHead {
+position: absolute !important;
+top: -20px !important;
+/* Default fallback color - will be overridden by dynamic styles */
+background-color: #333 !important;
+color: white !important;
+padding: 2px 6px !important;
+border-radius: 3px !important;
+font-size: 11px !important;
+font-weight: 500 !important;
+white-space: nowrap !important;
+pointer-events: none !important;
+z-index: 3 !important;
+font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+}
+
+/* Cursor blinking animation */
+@keyframes yjs-cursor-blink {
+0%, 50% { opacity: 1; }
+51%, 100% { opacity: 0.3; }
+}
+
+/* Alternative class names that y-monaco might use */
+.monaco-yjs-remote-selection,
+.yjs-remote-selection {
+background-color: rgba(255, 255, 0, 0.3) !important;
+border: 1px solid rgba(255, 255, 0, 0.5) !important;
+pointer-events: none !important;
+position: absolute !important;
+z-index: 1 !important;
+}
+
+.monaco-yjs-remote-cursor,
+.yjs-remote-cursor {
+background-color: #ff0000 !important;
+width: 2px !important;
+position: absolute !important;
+pointer-events: none !important;
+z-index: 2 !important;
+}
+
+/* Make selections work better in dark theme */
+.monaco-editor.vs-dark .yRemoteSelection,
+.monaco-editor.vs-dark .monaco-yjs-remote-selection,
+.monaco-editor.vs-dark .yjs-remote-selection {
+background-color: rgba(255, 255, 255, 0.15) !important;
+border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Ensure proper positioning within Monaco editor */
+.monaco-editor .view-lines .yRemoteSelection,
+.monaco-editor .view-lines .monaco-yjs-remote-selection {
+position: absolute !important;
+}
+
+.monaco-editor .view-lines .yRemoteCursor,
+.monaco-editor .view-lines .monaco-yjs-remote-cursor {
+position: absolute !important;
+}

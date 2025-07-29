@@ -1,0 +1,38 @@
+/* frontend/src/components/UserListComponent.css */
+
+.user-list-container {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    min-width: 200px; /* Give it some minimum width */
+  }
+  
+  .user-list-header {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.1em;
+  }
+  
+  .user-list {
+    list-style-type: none; /* Removes default bullet points */
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+  
+  .user-list-item {
+    padding: 8px 5px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+  }
+  
+  .user-list-item:last-child {
+    border-bottom: none; /* No border for the last item */
+  }
+  
+  .no-users-message {
+    color: #777;
+    font-style: italic;
+  }

@@ -1,0 +1,92 @@
+/* frontend/src/App.css or a new CSS file */
+
+.app-header {
+  background-color: #282c34;
+  padding: 10px 20px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.connection-statuses {
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+.connection-statuses p {
+  margin: 2px 0;
+}
+
+.room-selection-container {
+  margin: 20px auto;
+  padding: 15px;
+  max-width: 500px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.room-selection-container form {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-selection-container input[type="text"] {
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  flex-grow: 1;
+}
+
+.room-selection-container button {
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.room-selection-container button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.current-room-info {
+  padding: 10px;
+}
+.current-room-info p {
+  margin: 0 0 10px 0;
+  font-size: 1.1em;
+}
+.current-room-info strong {
+  color: #007bff;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+.no-room-message {
+  text-align: center;
+  padding: 50px;
+  color: #555;
+}
+
+/* Your existing .editor-and-users-container styles */
+.editor-and-users-container {
+  display: flex;
+  /* ... */
+}
+.main-content {
+  flex-grow: 1;
+  /* ... */
+}
+.sidebar {
+  width: 250px; /* Or your desired width */
+  /* ... */
+}
