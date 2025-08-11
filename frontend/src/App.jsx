@@ -125,16 +125,16 @@ function App() {
       }
     });
 
-    // text.observe(event => console.log(`Y.Text content updated in room ${currentRoomId}:`));
-    // awarenessInstance.on('change', changes => {
-    //   const remoteUsers = [];
-    //   awarenessInstance.getStates().forEach((state, clientID) => {
-    //     if (clientID !== awarenessInstance.clientID && state.user) {
-    //       remoteUsers.push({ id: clientID.toString(), nickname: state.user.name, color: state.user.color });
-    //     }
-    //   });
-    //   setActiveUsers(remoteUsers);
-    // });
+    text.observe(event => console.log(`Y.Text content updated in room ${currentRoomId}:`));
+    awarenessInstance.on('change', changes => {
+      const remoteUsers = [];
+      awarenessInstance.getStates().forEach((state, clientID) => {
+        if (clientID !== awarenessInstance.clientID && state.user) {
+          remoteUsers.push({ id: clientID.toString(), nickname: state.user.name, color: state.user.color });
+        }
+      });
+      setActiveUsers(remoteUsers);
+    });
 
     
 
