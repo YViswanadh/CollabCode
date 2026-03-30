@@ -92,6 +92,12 @@ nbproject/
 coverage/
 .nyc_output/
 
+# Mac system files
+.DS_Store
+
+# Misc
+*.local
+
 # Optional: Yarn specific files (if you use Yarn Berry PnP)
 # .pnp.*
 # .yarn/*

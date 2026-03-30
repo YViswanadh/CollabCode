@@ -1,9 +1,10 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import Editor, * as monaco from '@monaco-editor/react';
+import { loader } from '@monaco-editor/react';
 import './RemoteCursor.css'
 import { MonacoBinding } from 'y-monaco';
 
-const EditorComponent = ({ yText, yAwareness }) =>{
+const EditorComponent = ({ yText, yAwareness, language = 'javascript' }) =>{
 
   const editorRef = useRef(null); // To store the Monaco editor instance
   const monacoBindingRef = useRef(null);
@@ -189,146 +190,180 @@ const EditorComponent = ({ yText, yAwareness }) =>{
     console.log('Monaco Editor instance mounted:', editor);
 
     // Check if yText and yAwareness are available before creating the binding
-    if (yText && yAwareness) {
-      try {
-        // Create the MonacoBinding.
-        // This binds the Monaco editor instance to the Y.Text instance.
-        // It also uses the Yjs awareness instance for real-time cursor and selection tracking.
-        monacoBindingRef.current = new MonacoBinding(
-          yText,          // The Y.Text shared type
-          editor.getModel(), // The Monaco editor's text model
-          new Set([editor]), // A set of editor instances to bind (usually just one)
-          yAwareness    // The Yjs awareness instance
-        );
-        console.log('MonacoBinding created and attached.');
+    if (yText && yAwareness && editorRef.current) {
 
-        const applyColorsWithRetry = () => {
-          applyUserColors();
-          setTimeout(applyUserColors, 100);
-          setTimeout(applyUserColors, 500);
-          setTimeout(applyUserColors, 1000);
-        };
-        applyColorsWithRetry();
+      // try {
+      //   monacoBindingRef.current = new MonacoBinding(
+      //     yText,          // The Y.Text shared type
+      //     editor.getModel(), // The Monaco editor's text model
+      //     new Set([editor]), // A set of editor instances to bind (usually just one)
+      //     yAwareness    // The Yjs awareness instance
+      //   );
+      //   console.log('MonacoBinding created and attached.');
 
-        // Debug: Log awareness changes
-        const awarenessHandler = ({ added, updated, removed }) => {
-          console.log('Awareness changed:', { added, updated, removed });
+      //   const applyColorsWithRetry = () => {
+      //     applyUserColors();
+      //     setTimeout(applyUserColors, 100);
+      //     setTimeout(applyUserColors, 500);
+      //     setTimeout(applyUserColors, 1000);
+      //   };
+      //   applyColorsWithRetry();
+
+      //   // Debug: Log awareness changes
+      //   const awarenessHandler = ({ added, updated, removed }) => {
+      //     console.log('Awareness changed:', { added, updated, removed });
           
-          applyUserColors();
+      //     applyUserColors();
 
           
-          // Apply colors whenever awareness changes
+      //     // Apply colors whenever awareness changes
           
-          // Clean up styles for removed users
-          if (removed) {
-            removed.forEach(clientId => {
-              cleanupUserStyles(clientId);
-            });
-          }
+      //     // Clean up styles for removed users
+      //     if (removed) {
+      //       removed.forEach(clientId => {
+      //         cleanupUserStyles(clientId);
+      //       });
+      //     }
 
-          setTimeout(applyUserColors, 100);
-          setTimeout(applyUserColors, 500);
-          setTimeout(applyUserColors, 1000);
+      //     setTimeout(applyUserColors, 100);
+      //     setTimeout(applyUserColors, 500);
+      //     setTimeout(applyUserColors, 1000);
           
-        };
+      //   };
         
-        // Store handler for cleanup
-        monacoBindingRef.current._awarenessHandler = awarenessHandler;
-        yAwareness.on('change', awarenessHandler);
+      //   // Store handler for cleanup
+      //   monacoBindingRef.current._awarenessHandler = awarenessHandler;
+      //   yAwareness.on('change', awarenessHandler);
 
-        setTimeout(applyUserColors, 2000);
+      //   setTimeout(applyUserColors, 2000);
 
-        // Also listen for changes that might not trigger the main awareness handler
-        const observer = new MutationObserver((mutations) => {
-          mutations.forEach((mutation) => {
-            if (mutation.type === 'childList') {
-              // Check if remote cursor/selection elements were added
-              mutation.addedNodes.forEach((node) => {
-                if (node.nodeType === Node.ELEMENT_NODE) {
-                  const remoteCursors = node.querySelectorAll?.('.yRemoteCursor, .yRemoteSelection, .yRemoteCursorHead');
-                  if (remoteCursors && remoteCursors.length > 0) {
-                    // Re-apply colors when new remote elements are added
-                    setTimeout(() => applyUserColors(), 10);
-                  }
-                }
-              });
-            }
-          });
-        });
+      //   // Also listen for changes that might not trigger the main awareness handler
+      //   const observer = new MutationObserver((mutations) => {
+      //     mutations.forEach((mutation) => {
+      //       if (mutation.type === 'childList') {
+      //         // Check if remote cursor/selection elements were added
+      //         mutation.addedNodes.forEach((node) => {
+      //           if (node.nodeType === Node.ELEMENT_NODE) {
+      //             const remoteCursors = node.querySelectorAll?.('.yRemoteCursor, .yRemoteSelection, .yRemoteCursorHead');
+      //             if (remoteCursors && remoteCursors.length > 0) {
+      //               // Re-apply colors when new remote elements are added
+      //               setTimeout(() => applyUserColors(), 10);
+      //             }
+      //           }
+      //         });
+      //       }
+      //     });
+      //   });
         
-        // Observe changes to the Monaco editor container
-        const editorContainer = editor.getDomNode();
-        if (editorContainer) {
-          observer.observe(editorContainer, {
-            childList: true,
-            subtree: true
-          });
-          monacoBindingRef.current._mutationObserver = observer;
+      //   // Observe changes to the Monaco editor container
+      //   const editorContainer = editor.getDomNode();
+      //   if (editorContainer) {
+      //     observer.observe(editorContainer, {
+      //       childList: true,
+      //       subtree: true
+      //     });
+      //     monacoBindingRef.current._mutationObserver = observer;
+      //   }
+
+
+      // } catch (error) {
+      //   console.error('Failed to create MonacoBinding:', error);
+      // }
+      const model = editorRef.current.getModel();
+      if (model) {
+        // If a previous binding exists, destroy it first
+        if (monacoBindingRef.current) {
+          monacoBindingRef.current.destroy();
         }
-
-
-      } catch (error) {
-        console.error('Failed to create MonacoBinding:', error);
+        
+        // Create a new MonacoBinding
+        monacoBindingRef.current = new MonacoBinding(
+          yText,
+          model,
+          new Set([editorRef.current]), // Set of editor instances to bind
+          yAwareness
+        );
+        console.log('[MonacoEditor] MonacoBinding initialized.');
+      } else {
+        console.error('[MonacoEditor] Failed to get model from Monaco Editor.');
       }
+
+
+
     } else {
       console.warn('MonacoBinding: yText or yAwareness not yet available.');
     }
   };
 
   useEffect(() => {
-    // The return function of useEffect is the cleanup function.
-    console.log('EditorComponent useEffect - yAwareness:', yAwareness);
+    // Only proceed if the editor is mounted and yText/yAwareness are valid
+    if (editorRef.current && yText && yAwareness) {
+      // Check if the binding needs to be re-created (e.g., if yText object changes for a new room)
+      if (!monacoBindingRef.current || monacoBindingRef.current.doc !== yText) {
+        if (monacoBindingRef.current) {
+          monacoBindingRef.current.destroy(); // Clean up old binding
+        }
+        const model = editorRef.current.getModel();
+        if (model) {
+          monacoBindingRef.current = new MonacoBinding(
+            yText,
+            model,
+            new Set([editorRef.current]),
+            yAwareness
+          );
+          console.log('[MonacoEditor] MonacoBinding re-initialized due to prop change.');
+        }
+      }
+    }
+
+    // Cleanup function for when the component unmounts or yText/yAwareness change to null
     return () => {
       if (monacoBindingRef.current) {
-        console.log('Disposing MonacoBinding.');
-
-        // Clean up awareness listener
-        if (monacoBindingRef.current._awarenessHandler && yAwareness) {
-          yAwareness.off('change', monacoBindingRef.current._awarenessHandler);
-        }
-
-        monacoBindingRef.current.destroy(); // Clean up the binding
+        console.log('[MonacoEditor] Destroying MonacoBinding on cleanup.');
+        monacoBindingRef.current.destroy();
         monacoBindingRef.current = null;
       }
-      // editorRef.current is managed by the Editor component from @monaco-editor/react
-      // Clean up all user styles
-      const styleElements = document.querySelectorAll('[id^="user-"][id$="-styles"]');
-      styleElements.forEach(el => el.remove());
-
     };
-  }, [yAwareness]); // Added yAwareness as dependency
+  }, [yText, yAwareness]);
+  
+
+  useEffect(() => {
+    if (editorRef.current && language) {
+      const model = editorRef.current.getModel();
+      if (model) {
+        // monaco  is available via a global `window.monaco` after loader runs,
+        // or passed as second arg to onMount. For safety, ensure monaco is loaded.
+        if (window.monaco && window.monaco.editor) {
+            window.monaco.editor.setModelLanguage(model, language);
+            console.log(`[MonacoEditor] Language set to: ${language}`);
+        } else {
+            // If monaco global is not yet available, this change might be missed.
+            // The <Editor language={language}> prop should handle initial setting.
+            // This effect is more for dynamic changes post-mount.
+            console.warn('[MonacoEditor] window.monaco not available for dynamic language change. Initial language prop should work.');
+        }
+      }
+    }
+  }, [language]);  // Added yAwareness as dependency
 
 
 
     return (
-        <div className='editor-container '>
-
-            <Editor
-                height="90vh" 
-                width="50vh"
-                defaultLanguage="javascript"
-                theme="vs-dark"
-                onMount={handleEditorDidMount}
-                options={{
-                    selectOnLineNumbers: true,
-                    automaticLayout: true,
-                    minimap: {
-                        enabled: true,
-                    },
-                    wordWrap: 'on',
-                    scrollbar: {
-                        vertical: 'hidden',
-                        horizontal: 'hidden',
-                    },
-                    fontSize: 14,
-                    cursorBlinking: 'smooth',
-                    smoothScrolling: true,
-                    suggestOnTriggerCharacters: true,
-                    quickSuggestions: true,
-                    }}
-
-            />
-        </div>
+        <Editor
+      height="100%" // Make editor fill its container (ensure parent has defined height)
+      width="100%"  // Make editor fill its container (ensure parent has defined width)
+      language={language} // Key prop for syntax highlighting!
+      theme="vs-dark"     // Common themes: "vs-dark", "light". More can be added.
+      defaultValue={yText && yText.toString().length === 0 ? `// Welcome to room with language: ${language}\n` : ""} // Initial content if yText is empty
+      onMount={handleEditorDidMount}
+      options={{
+        minimap: { enabled: true },
+        wordWrap: 'on',
+        fontSize: 14,
+        scrollBeyondLastLine: false,
+        automaticLayout: true, // Ensures editor resizes properly within flex/grid layouts
+      }}
+    />
     )
 }
 export default EditorComponent;
