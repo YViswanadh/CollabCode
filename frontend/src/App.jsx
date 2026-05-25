@@ -645,7 +645,7 @@ function Workspace() {
       <div className="absolute bottom-[10%] right-[10%] w-[350px] h-[350px] rounded-full bg-indigo-500/5 blur-[100px] pointer-events-none z-0 animate-[pulse_8s_ease-in-out_infinite]" />
 
       {/* ── Header ── */}
-      <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b px-6 py-4 flex items-center justify-between shadow-lg transition-all duration-300 ${
+      <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b px-4 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between shadow-lg transition-all duration-300 ${
         theme === 'dark'
           ? 'bg-[#080c14]/80 border-slate-800/80 shadow-cyan-950/5'
           : 'bg-[#ffffff]/80 border-slate-200/80 shadow-slate-100/60'
@@ -752,7 +752,7 @@ function Workspace() {
         </div>
       </header>
 
-      <main className="relative z-10 flex-1 p-4 md:p-6 max-w-7xl mx-auto w-full flex flex-col gap-6">
+      <main className="relative z-10 flex-1 p-2.5 sm:p-4 max-w-[1440px] mx-auto w-full flex flex-col gap-4">
 
         {/* Mobile status row */}
         <div className={`flex sm:hidden flex-wrap items-center gap-3 px-4 py-2.5 rounded-2xl border text-xs justify-between transition-colors duration-150 ${
@@ -821,9 +821,9 @@ function Workspace() {
             </div>
           </div>
         ) : (
-          <div className="flex-1 flex flex-col gap-4 min-h-[70vh]">
+          <div className="flex-1 flex flex-col gap-3 min-h-[70vh]">
             {/* Toolbar */}
-            <div className={`w-full border rounded-3xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4 backdrop-blur-md transition-all duration-300 ${
+            <div className={`w-full border rounded-3xl p-2.5 sm:p-3 flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-md transition-all duration-300 ${
               theme === 'dark' ? 'bg-slate-900/30 border-slate-800/80 shadow-xl shadow-black/10' : 'bg-white border-slate-200/80 shadow-slate-200/30 shadow-lg'
             }`}>
               <div className="flex items-center gap-3">
@@ -898,13 +898,13 @@ function Workspace() {
             </div>
 
             {/* Main grid */}
-            <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-6 h-[68vh] min-h-[500px]">
+            <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-4 h-[68vh] min-h-[500px]">
 
               {/* Editor panel */}
-              <div className={`lg:col-span-3 border rounded-3xl p-3 flex flex-col shadow-xl overflow-hidden transition-all duration-300 ${
+              <div className={`lg:col-span-3 border rounded-3xl p-2 sm:p-2.5 flex flex-col shadow-xl overflow-hidden transition-all duration-300 ${
                 theme === 'dark' ? 'bg-slate-900/20 border-slate-800/80 shadow-black/10' : 'bg-white border-slate-200/80 shadow-slate-200/30 shadow-lg'
               }`}>
-                <div className="flex items-center gap-1.5 pb-3 border-b border-slate-800/60 mb-3 px-1.5 justify-between">
+                <div className="flex items-center gap-1.5 pb-2.5 border-b border-slate-800/60 mb-2.5 px-1.5 justify-between">
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded-full bg-slate-400 opacity-40" />
                     <span className="w-2.5 h-2.5 rounded-full bg-slate-400 opacity-40" />

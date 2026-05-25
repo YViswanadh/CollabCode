@@ -132,16 +132,16 @@ const EditorComponent = ({
               position: relative !important;
             }
 
-            /* Name Tag Bubble above the Collaborative Cursor for Client ${clientID} */
+            /* Name Tag Bubble below the Collaborative Cursor for Client ${clientID} */
             .yRemoteSelectionHead-${clientID}::after {
               content: "${escapedName}" !important;
               position: absolute !important;
-              top: -26px !important;
+              top: 22px !important; /* Move below the cursor bar */
               left: -2px !important;
               background-color: ${userColor} !important;
               color: ${contrastTextColor} !important;
               padding: 2px 6px !important;
-              border-radius: 3px 3px 3px 0 !important;
+              border-radius: 0 3px 3px 3px !important; /* Rounded corners to match standard bottom-right tooltip style */
               font-size: 10px !important;
               font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
               font-weight: 600 !important;
@@ -153,15 +153,15 @@ const EditorComponent = ({
               transition: opacity 0.15s ease-in-out !important;
             }
 
-            /* Custom Color-Matched Pointer Arrow for Client ${clientID} */
+            /* Custom Color-Matched Pointer Arrow pointing UP for Client ${clientID} */
             .yRemoteSelectionHead-${clientID}::before {
               content: "" !important;
               position: absolute !important;
-              top: -8px !important;
+              top: 18px !important; /* Arrow pointing up from top edge of bubble */
               left: 0px !important;
-              border-width: 4px 4px 0 !important;
+              border-width: 0 4px 4px !important;
               border-style: solid !important;
-              border-color: ${userColor} transparent !important;
+              border-color: transparent transparent ${userColor} !important;
               display: block !important;
               width: 0 !important;
               height: 0 !important;
