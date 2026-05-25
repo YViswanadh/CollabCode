@@ -136,11 +136,11 @@ const EditorComponent = ({
             .yRemoteSelectionHead-${clientID}::after {
               content: "${escapedName}" !important;
               position: absolute !important;
-              top: -22px !important;
+              top: -26px !important;
               left: -2px !important;
               background-color: ${userColor} !important;
               color: ${contrastTextColor} !important;
-              padding: 1px 5px !important;
+              padding: 2px 6px !important;
               border-radius: 3px 3px 3px 0 !important;
               font-size: 10px !important;
               font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
@@ -153,8 +153,27 @@ const EditorComponent = ({
               transition: opacity 0.15s ease-in-out !important;
             }
 
-            /* Fully opaque name tag when hovered */
-            .yRemoteSelectionHead-${clientID}:hover::after {
+            /* Custom Color-Matched Pointer Arrow for Client ${clientID} */
+            .yRemoteSelectionHead-${clientID}::before {
+              content: "" !important;
+              position: absolute !important;
+              top: -8px !important;
+              left: 0px !important;
+              border-width: 4px 4px 0 !important;
+              border-style: solid !important;
+              border-color: ${userColor} transparent !important;
+              display: block !important;
+              width: 0 !important;
+              height: 0 !important;
+              z-index: 1000 !important;
+              opacity: 0.85 !important;
+              pointer-events: none !important;
+              transition: opacity 0.15s ease-in-out !important;
+            }
+
+            /* Fully opaque name tag and arrow when hovered */
+            .yRemoteSelectionHead-${clientID}:hover::after,
+            .yRemoteSelectionHead-${clientID}:hover::before {
               opacity: 1 !important;
             }
           `;
@@ -188,6 +207,7 @@ const EditorComponent = ({
         autoClosingBrackets: autoClosingBrackets,
         scrollBeyondLastLine: false,
         automaticLayout: true, // Ensures editor resizes properly within layouts
+        padding: { top: 24, bottom: 12 }, // Safe margin to prevent dynamic collaborator name tags from getting cut off on line 1
       }}
     />
   );

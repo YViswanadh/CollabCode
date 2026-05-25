@@ -390,18 +390,18 @@ function Workspace() {
     return (
       <div className="flex flex-col h-full">
         {/* Navigation Tabs */}
-        <div className={`flex border-b mb-4 justify-between transition-colors duration-150 ${
-          theme === 'dark' ? 'border-slate-805/60' : 'border-slate-200'
+        <div className={`flex gap-4 sm:gap-6 border-b mb-4 transition-colors duration-150 ${
+          theme === 'dark' ? 'border-slate-800' : 'border-slate-200'
         }`}>
           {['chat', 'users', 'preferences'].map((tab) => (
             <button
               key={tab}
               onClick={() => setSidebarTab(tab)}
-              className={`flex-1 pb-2.5 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all duration-150 capitalize cursor-pointer ${
+              className={`pb-2.5 px-1 text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider border-b-2 transition-all duration-150 capitalize cursor-pointer ${
                 sidebarTab === tab
-                  ? 'border-cyan-500 text-cyan-400'
+                  ? 'border-cyan-500 text-cyan-400 font-extrabold'
                   : theme === 'dark'
-                    ? 'border-transparent text-slate-500 hover:text-slate-350'
+                    ? 'border-transparent text-slate-500 hover:text-slate-300'
                     : 'border-transparent text-slate-400 hover:text-slate-700'
               }`}
             >
