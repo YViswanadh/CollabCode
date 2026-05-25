@@ -39,9 +39,15 @@ export default function FeedbackPage() {
   return (
     <div className={`min-h-screen flex flex-col items-center justify-center p-4 font-sans selection:bg-cyan-500/30 transition-colors duration-300 animate-page-transition relative overflow-hidden ${
       theme === 'dark'
-        ? 'bg-[#080c14] text-slate-100'
+        ? 'bg-[#050811] text-slate-100'
         : 'bg-[#f8fafc] text-slate-800'
     }`}>
+      {/* ── Technical Grid Mesh Background ── */}
+      <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 [background-size:20px_20px] ${
+        theme === 'dark'
+          ? 'bg-[radial-gradient(rgba(6,182,212,0.06)_1.5px,transparent_1.5px)]'
+          : 'bg-[radial-gradient(rgba(99,102,241,0.05)_1.5px,transparent_1.5px)]'
+      }`} />
       {/* Ambient background blur circles */}
       <div className="absolute top-[-10%] left-[-10%] w-[350px] h-[350px] rounded-full bg-cyan-500/5 blur-[100px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[350px] h-[350px] rounded-full bg-indigo-500/5 blur-[100px] pointer-events-none" />

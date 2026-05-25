@@ -15,7 +15,7 @@ export default function ProtectedRoute({ children }) {
   if (loading) {
     return (
       <div className={`min-h-screen flex flex-col items-center justify-center transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-[#080c14] text-slate-100' : 'bg-[#f8fafc] text-slate-800'
+        theme === 'dark' ? 'bg-[#050811] text-slate-100' : 'bg-[#f8fafc] text-slate-800'
       }`}>
         <div className="flex flex-col items-center gap-6 relative">
           {/* Premium Geometric Loading Spinner */}

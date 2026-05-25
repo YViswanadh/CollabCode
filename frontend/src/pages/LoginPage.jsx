@@ -34,13 +34,20 @@ export default function LoginPage() {
   };
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-4 font-sans selection:bg-cyan-500/30 transition-colors duration-300 animate-page-transition ${
+    <div className={`min-h-screen flex flex-col items-center justify-center p-4 font-sans selection:bg-cyan-500/30 transition-colors duration-300 animate-page-transition relative overflow-hidden ${
       theme === 'dark'
-        ? 'bg-[#080c14] text-slate-100'
+        ? 'bg-[#050811] text-slate-100'
         : 'bg-[#f8fafc] text-slate-800'
     }`}>
+      {/* ── Technical Grid Mesh Background ── */}
+      <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 [background-size:20px_20px] ${
+        theme === 'dark'
+          ? 'bg-[radial-gradient(rgba(6,182,212,0.06)_1.5px,transparent_1.5px)]'
+          : 'bg-[radial-gradient(rgba(99,102,241,0.05)_1.5px,transparent_1.5px)]'
+      }`} />
+
       {/* Logo */}
-      <Link to="/" className="flex items-center gap-3 mb-8 active:scale-98 transition duration-150 cursor-pointer">
+      <Link to="/" className="relative z-10 flex items-center gap-3 mb-8 active:scale-98 transition duration-150 cursor-pointer">
         <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-600 flex items-center justify-center shadow-md shadow-cyan-500/20">
           <code className="text-white font-extrabold text-sm font-mono">&lt;&gt;</code>
         </div>
@@ -50,9 +57,9 @@ export default function LoginPage() {
       </Link>
 
       {/* Card */}
-      <div className={`w-full max-w-md border rounded-3xl p-8 shadow-2xl backdrop-blur-md relative overflow-hidden transition-all duration-300 ${
+      <div className={`w-full max-w-md border rounded-3xl p-8 shadow-2xl backdrop-blur-md relative overflow-hidden transition-all duration-300 z-10 ${
         theme === 'dark'
-          ? 'bg-slate-900/40 border-slate-800/80 shadow-black/20'
+          ? 'bg-[#0b0f19]/45 border-slate-900/80 shadow-black/20'
           : 'bg-white border-slate-200/80 shadow-slate-200/45 shadow-xl'
       }`}>
         
@@ -163,7 +170,11 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm shadow-lg shadow-cyan-500/20 active:scale-[0.98] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer"
+              className={`w-full py-3.5 rounded-2xl font-extrabold text-sm shadow-lg active:scale-[0.98] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${
+                theme === 'dark'
+                  ? 'bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-cyan-500/20'
+                  : 'bg-[#7c3aed] text-white hover:bg-[#6d28d9] shadow-indigo-500/10'
+              }`}
             >
               {loading ? (
                 <>

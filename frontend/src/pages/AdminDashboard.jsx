@@ -95,15 +95,22 @@ export default function AdminDashboard() {
     : 0;
 
   return (
-    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 animate-page-transition overflow-x-hidden ${
+    <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 animate-page-transition overflow-x-hidden relative ${
       theme === 'dark'
-        ? 'bg-[#080c14] text-slate-100'
+        ? 'bg-[#050811] text-slate-100'
         : 'bg-[#f8fafc] text-slate-800'
     }`}>
+      {/* ── Technical Grid Mesh Background ── */}
+      <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 [background-size:20px_20px] ${
+        theme === 'dark'
+          ? 'bg-[radial-gradient(rgba(6,182,212,0.06)_1.5px,transparent_1.5px)]'
+          : 'bg-[radial-gradient(rgba(99,102,241,0.05)_1.5px,transparent_1.5px)]'
+      }`} />
+
       {/* ── Nav Header ── */}
       <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b px-6 py-4 flex items-center justify-between shadow-lg transition-all duration-300 ${
         theme === 'dark'
-          ? 'bg-[#080c14]/80 border-slate-800/80 shadow-cyan-950/5'
+          ? 'bg-[#050811]/85 border-slate-900/80 shadow-cyan-950/5'
           : 'bg-[#ffffff]/80 border-slate-200/80 shadow-slate-100/60'
       }`}>
         <div className="flex items-center gap-3">

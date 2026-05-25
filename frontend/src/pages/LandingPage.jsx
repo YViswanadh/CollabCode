@@ -18,7 +18,7 @@ export default function LandingPage() {
   if (loading) {
     return (
       <div className={`min-h-screen flex flex-col items-center justify-center transition-colors duration-300 ${
-        theme === 'dark' ? 'bg-[#080c14] text-slate-100' : 'bg-[#f8fafc] text-slate-800'
+        theme === 'dark' ? 'bg-[#050811] text-slate-100' : 'bg-[#f8fafc] text-slate-800'
       }`}>
         <div className="flex flex-col items-center gap-6 relative">
           <div className="w-20 h-20 relative flex items-center justify-center">
@@ -44,22 +44,24 @@ export default function LandingPage() {
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 animate-page-transition overflow-hidden relative ${
       theme === 'dark'
-        ? 'bg-[#080c14] text-slate-100'
+        ? 'bg-[#050811] text-slate-100'
         : 'bg-[#f8fafc] text-slate-800'
     }`}>
       {/* ── Technical Grid Mesh Background ── */}
-      <div className={`absolute inset-0 bg-[radial-gradient(#3b82f6_1.2px,transparent_1.2px)] [background-size:32px_32px] pointer-events-none z-0 transition-opacity duration-300 ${
-        theme === 'dark' ? 'opacity-[0.06]' : 'opacity-[0.03]'
+      <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 [background-size:20px_20px] ${
+        theme === 'dark'
+          ? 'bg-[radial-gradient(rgba(6,182,212,0.06)_1.5px,transparent_1.5px)]'
+          : 'bg-[radial-gradient(rgba(99,102,241,0.05)_1.5px,transparent_1.5px)]'
       }`} />
 
       {/* ── Outer Pulsing Ambient lights ── */}
-      <div className="absolute top-[-10%] left-[10%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 opacity-20 blur-[130px] animate-[pulse_8s_ease-in-out_infinite] pointer-events-none z-0" />
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 opacity-20 blur-[130px] animate-[pulse_8s_ease-in-out_infinite] pointer-events-none z-0" />
       <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 opacity-15 blur-[140px] animate-[pulse_10s_ease-in-out_infinite] pointer-events-none z-0" />
 
       {/* ── Navigation Header ── */}
       <header className={`sticky top-0 z-45 w-full backdrop-blur-xl border-b px-6 py-4 flex items-center justify-between shadow-lg transition-all duration-300 ${
         theme === 'dark'
-          ? 'bg-[#080c14]/75 border-slate-808/80 shadow-cyan-950/5'
+          ? 'bg-[#050811]/75 border-slate-900/80 shadow-cyan-950/5'
           : 'bg-[#ffffff]/75 border-slate-200/80 shadow-slate-100/60'
       }`}>
         <Link to="/" className="flex items-center gap-3 active:scale-98 transition duration-150 cursor-pointer">
