@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function LandingPage() {
   const { currentUser, loading, theme, toggleTheme } = useAuth();
   const navigate = useNavigate();
+  const [emailInput, setEmailInput] = useState('');
+  const [emailSubmitted, setEmailSubmitted] = useState(false);
 
   const handleCTA = () => {
     if (currentUser) {
@@ -12,6 +14,14 @@ export default function LandingPage() {
     } else {
       navigate('/login');
     }
+  };
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    if (!emailInput.trim()) return;
+    setEmailSubmitted(true);
+    setEmailInput('');
+    setTimeout(() => setEmailSubmitted(false), 5000);
   };
 
   // Gorgeous counter-rotating geometric loader while session is being verified
@@ -120,60 +130,53 @@ export default function LandingPage() {
         </div>
       </header>
 
-      {/* ── Main Hero Section ── */}
+      {/* ── Main Hero Section (Stitch Redesign: "Speed of Light") ── */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-12 md:py-24 flex flex-col items-center justify-center relative z-10">
         <div className="max-w-3xl text-center space-y-8">
-          <div className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border text-xs font-bold tracking-widest font-mono transition-colors duration-150 ${
+          <div className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border text-[10px] sm:text-xs font-bold tracking-widest font-mono transition-colors duration-150 uppercase ${
             theme === 'dark'
-              ? 'bg-cyan-950/20 border-cyan-800/30 text-cyan-400 shadow-inner'
-              : 'bg-cyan-50 border-cyan-200/60 text-cyan-600 shadow-sm'
+              ? 'bg-cyan-950/30 border-cyan-800/30 text-cyan-400 shadow-inner'
+              : 'bg-cyan-50/50 border-cyan-200/60 text-cyan-600 shadow-sm'
           }`}>
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            REAL-TIME CODE SYNCHRONIZATION
+            GLACIER UPDATE 2.4 LIVE NOW
           </div>
 
-          <h2 className="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.08] bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500">
-            Empower Your Code Collaborations in Real-Time
+          <h2 className="text-4xl sm:text-7.5xl font-extrabold tracking-tight leading-[1.03] select-none">
+            Code at the <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-550 to-purple-600">Speed of Light</span>
           </h2>
 
-          <p className={`text-base sm:text-lg max-w-2xl mx-auto transition-colors duration-150 font-light leading-relaxed ${
+          <p className={`text-sm sm:text-base max-w-2xl mx-auto transition-colors duration-150 font-light leading-relaxed ${
             theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
           }`}>
-            Write, compile, and debug code instantly in multi-user pair programming environments. Experience smooth pixel-perfect sync and secure shared compiler drawer terminals.
+            The world's fastest collaborative code editor. Zero latency, real-time presence, and native performance. Built for teams who ship at lightspeed.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
-            {currentUser ? (
-              <Link
-                to="/workspace"
-                className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/40 active:scale-95 transition-all duration-150 cursor-pointer"
-              >
-                Enter Code Workspace
-              </Link>
-            ) : (
-              <>
-                <Link
-                  to="/register"
-                  className="px-8 py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-sm shadow-2xl shadow-cyan-500/30 hover:shadow-cyan-500/40 active:scale-95 transition-all duration-150 cursor-pointer"
-                >
-                  Create Account (Free)
-                </Link>
-                <Link
-                  to="/login"
-                  className={`px-8 py-4 rounded-2xl border transition-all duration-150 font-extrabold active:scale-95 cursor-pointer text-sm shadow-md ${
-                    theme === 'dark'
-                      ? 'bg-slate-950 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 hover:bg-slate-900/40 shadow-black/10'
-                      : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-slate-100'
-                  }`}
-                >
-                  Login to Existing Account
-                </Link>
-              </>
-            )}
+          <div className="flex flex-wrap items-center justify-center gap-5 pt-4">
+            <button
+              onClick={handleCTA}
+              className={`px-8 py-4 rounded-full font-extrabold text-sm active:scale-95 transition-all duration-200 cursor-pointer shadow-lg tracking-wide ${
+                theme === 'dark'
+                  ? 'bg-white text-slate-950 hover:bg-slate-100 shadow-white/5'
+                  : 'bg-slate-950 text-white hover:bg-slate-900 shadow-slate-950/10'
+              }`}
+            >
+              Start Coding Now
+            </button>
+            <a
+              href="https://github.com/YViswanadh/CollabCode"
+              target="_blank"
+              rel="noreferrer"
+              className={`px-6 py-4 font-extrabold text-sm hover:underline tracking-wide transition duration-150 ${
+                theme === 'dark' ? 'text-slate-300 hover:text-white' : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              View Docs
+            </a>
           </div>
         </div>
 
-        {/* ── Mockup / Visual Highlight Component (Ultra-Premium IDE) ── */}
+        {/* ── Mockup / Visual Highlight Component (Stitch Edition) ── */}
         <div className="w-full max-w-4xl mt-16 md:mt-24 z-10 transition-transform duration-500 hover:scale-[1.01]">
           <div className={`border rounded-3xl p-3 shadow-2xl transition-all duration-300 shadow-[0_0_50px_rgba(6,182,212,0.08)] ${
             theme === 'dark'
@@ -188,13 +191,14 @@ export default function LandingPage() {
                 <span className="w-2.5 h-2.5 rounded-full bg-green-400 opacity-60" />
                 {/* Tabs bar */}
                 <div className="flex items-center gap-1 ml-6 text-[10px] font-mono">
-                  <span className={`px-3 py-1 rounded-t-lg border-t border-l border-r font-bold flex items-center gap-1.5 transition-colors ${
+                  <span className={`px-4 py-1 rounded-t-lg border-t border-l border-r font-bold flex items-center gap-1.5 transition-colors ${
                     theme === 'dark' ? 'bg-[#05080f]/80 border-slate-800 text-cyan-400' : 'bg-slate-100 border-slate-200 text-indigo-600'
                   }`}>
-                    <span>main.cpp</span>
+                    <span>index.ts</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
                   </span>
-                  <span className="px-3 py-1 text-slate-500">Document.js</span>
+                  <span className="px-3 py-1 text-slate-500">styles.css</span>
+                  <span className="px-3 py-1 text-slate-500 font-light">layout.html</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[9px] font-mono bg-emerald-950/20 text-emerald-400 border border-emerald-900/35">
@@ -203,111 +207,161 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Mock Editor Canvas with neon custom cursors */}
+            {/* Mock Editor Canvas with neon custom cursors & Latency metrics */}
             <div className={`p-6 rounded-2xl font-mono text-xs overflow-hidden border transition-colors duration-150 relative ${
               theme === 'dark' ? 'bg-[#05080f] border-slate-900 text-slate-300' : 'bg-slate-50 border-slate-100 text-slate-700'
             }`}>
               
-              {/* Remote Cursor simulation 1 */}
-              <div className="absolute top-[28%] left-[34%] z-20 flex flex-col items-start pointer-events-none animate-pulse">
-                <div className="h-4 w-[1.5px] bg-cyan-400" />
-                <span className="text-[8px] bg-cyan-400 text-slate-950 px-1 py-0.5 rounded font-extrabold shadow font-mono">Alex</span>
+              {/* Latency Metrics side card */}
+              <div className={`absolute top-6 right-6 p-4 rounded-xl border z-20 backdrop-blur shadow-lg hidden sm:flex flex-col gap-2 max-w-[180px] text-[10px] ${
+                theme === 'dark'
+                  ? 'bg-slate-950/80 border-slate-800 text-slate-400'
+                  : 'bg-white/90 border-slate-200 text-slate-600'
+              }`}>
+                <span className="font-bold text-[9px] uppercase tracking-wider font-sans text-slate-500">Latency Metrics</span>
+                <div className="flex flex-col gap-1">
+                  <div className="flex justify-between">
+                    <span>Global Outpost</span>
+                    <span className="text-emerald-400 font-bold">0.4ms</span>
+                  </div>
+                  <div className="w-full h-1 bg-slate-800 rounded overflow-hidden">
+                    <div className="w-[85%] h-full bg-emerald-400 animate-pulse" />
+                  </div>
+                </div>
+                <div className="flex justify-between items-center mt-1 border-t border-slate-800/40 pt-1.5">
+                  <span>Sync Stream</span>
+                  <span className="text-cyan-400 font-bold uppercase text-[8px] border border-cyan-500/20 px-1 rounded bg-cyan-500/5">Stable</span>
+                </div>
               </div>
 
-              {/* Remote Cursor simulation 2 */}
-              <div className="absolute top-[62%] left-[45%] z-20 flex flex-col items-start pointer-events-none animate-pulse">
-                <div className="h-4 w-[1.5px] bg-pink-500" />
-                <span className="text-[8px] bg-pink-500 text-white px-1 py-0.5 rounded font-extrabold shadow font-mono">Sophia</span>
+              {/* Collaborative Cursor simulation matching image 4 */}
+              <div className="absolute top-[52%] left-[45%] z-20 flex flex-col items-start pointer-events-none">
+                <div className="h-4 w-[1.5px] bg-[#9333ea]" />
+                <span className="text-[8px] bg-[#9333ea] text-white px-1.5 py-0.5 rounded font-extrabold shadow font-sans mt-0.5 whitespace-nowrap animate-pulse">
+                  Alex is typing...
+                </span>
               </div>
 
               {/* Code lines */}
               <div className="flex gap-4">
                 <div className="text-slate-600 text-right select-none pr-2 border-r border-slate-800/30">
-                  <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p>
+                  <p>1</p><p>2</p><p>3</p><p>4</p><p>5</p><p>6</p><p>7</p><p>8</p><p>9</p>
                 </div>
                 <div className="flex-1">
-                  <p className="text-purple-400"><span className="text-blue-400">#include</span> <span className="text-green-400">&lt;iostream&gt;</span></p>
-                  <p className="text-blue-400">using namespace <span className="text-yellow-300">std</span>;</p>
-                  <p className="text-slate-500 mt-1.5">// Operational Transformations synchronize code character by character</p>
-                  <p className="text-blue-400">int <span className="text-yellow-400">main</span>() <span className="text-yellow-300">&#123;</span></p>
-                  <p className="pl-6 text-slate-300">cout <span className="text-purple-400">&lt;&lt;</span> <span className="text-orange-300">"Hello World from real-time syncing!"</span> <span className="text-purple-400">&lt;&lt;</span> endl;</p>
-                  <p className="pl-6 text-blue-400">return <span className="text-cyan-400">0</span>;</p>
-                  <p className="text-yellow-300">&#125;</p>
+                  <p className="text-purple-400"><span className="text-blue-400">import</span> &#123; <span className="text-yellow-300">Engine</span> &#125; <span className="text-blue-400">from</span> <span className="text-green-400">"@glacier/core"</span>;</p>
+                  <br />
+                  <p className="text-blue-400">const <span className="text-cyan-400">app</span> = <span className="text-blue-400">new</span> <span className="text-yellow-400">Engine</span>(&#123;</p>
+                  <p className="pl-6 text-slate-500">latency: <span className="text-cyan-400">0</span>,</p>
+                  <p className="pl-6 text-blue-400">realtime: <span className="text-cyan-400">true</span>,</p>
+                  <p className="pl-6 text-slate-500">collaborators: <span className="text-cyan-400">24</span></p>
+                  <p className="text-blue-400">&#125;);</p>
+                  <br />
+                  <p className="text-blue-400">export default <span className="text-cyan-400">app</span>; <span className="text-cyan-400 animate-ping">|</span></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* ── Features Section ── */}
-        <section className="w-full max-w-6xl mt-24 md:mt-36">
-          <div className="text-center space-y-4 mb-16">
-            <h3 className="text-2xl sm:text-4xl font-extrabold tracking-tight">
+        {/* ── Modern Features Showcase Grid ── */}
+        <section className="w-full max-w-6xl mt-28 md:mt-36">
+          <div className="text-center space-y-4 mb-20">
+            <div className="w-10 h-10 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mx-auto">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 className="text-3xl sm:text-4.5xl font-extrabold tracking-tight">
               Designed for Seamless Engineering
             </h3>
-            <p className={`text-sm max-w-xl mx-auto transition-colors duration-150 leading-relaxed ${
+            <p className={`text-xs sm:text-sm max-w-xl mx-auto transition-colors duration-150 leading-relaxed ${
               theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
             }`}>
               Everything you need for efficient pair programming, coding interview setups, and clean group debugging sessions.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
             {/* Feature 1 */}
-            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
+            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-sm flex gap-6 ${
               theme === 'dark'
                 ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
+                : 'bg-white border-slate-200 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6 shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
-              <h4 className="text-lg font-bold mb-2">Real-Time Syncing</h4>
-              <p className={`text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                Operational transformations handled natively. Write alongside teammates with lag-free cursors and immediate character bindings.
-              </p>
+              <div className="space-y-2">
+                <h4 className="text-lg font-extrabold">Ultra-Low Latency</h4>
+                <p className={`text-xs sm:text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Our custom WebSocket protocol ensures that every keystroke is propagated across the globe in under 50ms. No ghosting, no conflicts.
+                </p>
+              </div>
             </div>
 
             {/* Feature 2 */}
-            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
+            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-sm flex gap-6 ${
               theme === 'dark'
                 ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
+                : 'bg-white border-slate-200 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
-              <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-400 mb-6 shrink-0">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-lg font-extrabold">Live Presence</h4>
+                <p className={`text-xs sm:text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  See cursors, selections, and file navigation in real-time. It's like being in the same room.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-sm flex gap-6 ${
+              theme === 'dark'
+                ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
+                : 'bg-white border-slate-200 hover:border-slate-300 shadow-slate-100 shadow-lg'
+            }`}>
+              <div className="w-12 h-12 rounded-2xl bg-[#0b0f19]/35 border border-slate-800/40 flex items-center justify-center text-slate-400 mb-6 shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h4 className="text-lg font-bold mb-2">Multi-Lang Compiler</h4>
-              <p className={`text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                Run scripts instantly. Fully sandboxed compiler pipeline supporting C++, JavaScript, Python, Go, Java, and other platforms.
-              </p>
+              <div className="space-y-2">
+                <h4 className="text-lg font-extrabold">Native Terminal</h4>
+                <p className={`text-xs sm:text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  A fully featured terminal with GPU acceleration. Run builds, tests, and scripts without leaving the browser.
+                </p>
+              </div>
             </div>
 
-            {/* Feature 3 */}
-            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
+            {/* Feature 4 */}
+            <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl shadow-sm flex gap-6 ${
               theme === 'dark'
                 ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
+                : 'bg-white border-slate-200 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-500 mb-6 shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                 </svg>
               </div>
-              <h4 className="text-lg font-bold mb-2">Administrative Locks</h4>
-              <p className={`text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
-                Prevent overlap during compiler operations. Lock inputs dynamically so only one execution is active at a single time.
-              </p>
+              <div className="space-y-2">
+                <h4 className="text-lg font-extrabold">Git-Ready Workflow</h4>
+                <p className={`text-xs sm:text-sm leading-relaxed transition-colors duration-150 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Native integration with GitHub and GitLab. Resolve merge conflicts visually and commit with AI-assisted messages.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── Built-With / Tech Stack Showcase ── */}
-        <section className="w-full max-w-6xl mt-24 md:mt-36 mb-12">
+        <section className="w-full max-w-6xl mt-28 md:mt-36 mb-12">
           <div className="text-center mb-12">
             <h4 className="text-xs font-mono font-bold tracking-widest text-slate-500 uppercase">THE ARCHITECTURE SYSTEM</h4>
             <h3 className="text-2xl font-bold mt-2">Engineered With Leading Standards</h3>
@@ -318,7 +372,7 @@ export default function LandingPage() {
               <span key={tech} className={`px-4 py-2.5 rounded-2xl border text-xs font-mono font-bold shadow-sm transition-all duration-150 hover:scale-[1.03] ${
                 theme === 'dark'
                   ? 'bg-slate-900/40 border-slate-800 text-slate-300 hover:text-white'
-                  : 'bg-white border-slate-200 text-slate-600 hover:text-slate-800'
+                  : 'bg-white border-slate-200 text-slate-650 hover:text-slate-800'
               }`}>
                 {tech}
               </span>
@@ -326,8 +380,8 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* ── Visual Feedback CTA section ── */}
-        <section className={`w-full max-w-4xl mt-16 mb-8 border rounded-3xl p-8 text-center relative overflow-hidden backdrop-blur-md transition-all duration-300 ${
+        {/* ── Call To Action Section (Stitch Redesign: Get Early Access) ── */}
+        <section className={`w-full max-w-4xl mt-16 mb-8 border rounded-3xl p-8 md:p-12 text-center relative overflow-hidden backdrop-blur-md transition-all duration-300 ${
           theme === 'dark'
             ? 'bg-gradient-to-tr from-cyan-950/10 to-indigo-950/10 border-slate-800/80 shadow-black/10'
             : 'bg-gradient-to-tr from-cyan-50/20 to-indigo-50/20 border-slate-200/80 shadow-slate-100 shadow-lg'
@@ -335,21 +389,49 @@ export default function LandingPage() {
           <div className="absolute -top-12 -left-12 w-24 h-24 bg-cyan-500/5 blur-2xl rounded-full" />
           <div className="absolute -bottom-12 -right-12 w-24 h-24 bg-indigo-500/5 blur-2xl rounded-full" />
           
-          <h3 className="text-xl font-extrabold tracking-tight mb-2">Help Us Improve CollabCode</h3>
-          <p className={`text-xs max-w-md mx-auto mb-6 transition-colors duration-150 ${
+          <h3 className="text-2xl sm:text-3.5xl font-extrabold tracking-tight mb-3">Ready to accelerate your workflow?</h3>
+          <p className={`text-xs sm:text-sm max-w-md mx-auto mb-8 transition-colors duration-150 ${
             theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
           }`}>
-            We are constantly tuning our real-time synchronization engine and sandboxed compilers. Share your reviews or suggest new integrations directly to our admin team.
+            Join 10,000+ teams using CollabCode to build the future of software.
           </p>
-          <Link
-            to="/feedback"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
-            </svg>
-            <span>Write a Quick Review</span>
-          </Link>
+
+          <form onSubmit={handleEmailSubmit} className="max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              required
+              value={emailInput}
+              onChange={(e) => setEmailInput(e.target.value)}
+              placeholder="Enter your work email"
+              className={`flex-1 px-5 py-3.5 rounded-full border text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500/40 transition-all duration-200 ${
+                theme === 'dark'
+                  ? 'bg-[#050811] border-slate-800 text-white placeholder:text-slate-600'
+                  : 'bg-white border-slate-200 text-slate-800 placeholder:text-slate-400'
+              }`}
+            />
+            <button
+              type="submit"
+              className={`px-6 py-3.5 rounded-full font-extrabold text-xs sm:text-sm active:scale-95 transition-all duration-250 cursor-pointer shadow-lg tracking-wide shrink-0 ${
+                theme === 'dark'
+                  ? 'bg-white text-slate-950 hover:bg-slate-100'
+                  : 'bg-slate-950 text-white hover:bg-slate-900'
+              }`}
+            >
+              Get Early Access
+            </button>
+          </form>
+
+          {emailSubmitted && (
+            <p className="text-xs text-emerald-400 font-mono font-bold mt-4 animate-pulse">
+              Awesome! You've been successfully added to the early access list. 🚀
+            </p>
+          )}
+
+          <p className={`text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider mt-8 select-none ${
+            theme === 'dark' ? 'text-slate-650' : 'text-slate-400'
+          }`}>
+            NO CREDIT CARD REQUIRED &bull; FREE FOR OPEN SOURCE
+          </p>
         </section>
       </main>
 
