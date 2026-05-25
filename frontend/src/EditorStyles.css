@@ -1,0 +1,104 @@
+/* frontend/src/EditorStyles.css (or your global CSS file) */
+
+/* --- Styles for Remote Selections --- */
+/* y-monaco and y-codemirror.next typically apply the user's color directly via inline style for background.
+   These CSS rules can refine other aspects or provide fallbacks/overrides. */
+
+/* General remote selection style (applies to both Monaco and CodeMirror if they use a similar class) */
+.yRemoteSelection {
+  /* The background-color is usually set dynamically by the binding.
+     You can add other properties here, e.g., a subtle border or opacity. */
+  /* Example: slightly more translucent than default */
+  /* opacity: 0.8; */ 
+}
+
+/* Text within a remote selection.
+   Sometimes the default text color might not contrast well with all user colors.
+   This class might be specific to the binding. y-codemirror.next uses .cm-ySelectionInfo for the name tag.
+   The selection itself might not have a special text class. Inspect elements to be sure. */
+.yRemoteSelectionText { /* This class name is hypothetical; inspect actual rendered elements */
+  /* color: #FFFFFF !important; /* Example: Force white text if background colors are dark */
+  /* Be careful with !important; use it sparingly. */
+}
+
+/* --- Styles for Remote Cursors & Nickname Labels --- */
+
+/* Common class for the cursor element itself (the blinking line or block) */
+/* The `background-color` or `border-color` is often set inline by the binding using user.color */
+.yRemoteCursor {
+  /* Example: Ensure it's clearly visible */
+  /* border-left-width: 2px; /* If it's a line cursor */
+  /* opacity: 1 !important; /* Ensure it's not too faint */
+  position: absolute; /* Usually handled by the binding */
+}
+
+/* Class for the nickname label/widget next to the cursor */
+.yRemoteCursor-name { /* This is a common class name pattern */
+  /* Basic styling */
+  position: absolute; /* Crucial for positioning relative to the cursor */
+  padding: 2px 6px;
+  font-size: 0.75rem; /* Approx 12px if base is 16px */
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; /* Match MUI's typical font */
+  border-radius: 4px;
+  white-space: nowrap; /* Prevent nickname from wrapping */
+  user-select: none; /* Prevent accidental selection of the nickname */
+  z-index: 20; /* Ensure it's above editor content but below editor UI like menus */
+  
+  /* Colors - background is usually set inline by the binding using user.color */
+  /* We need to ensure text color contrasts well with a variety of background colors. */
+  color: white; /* Default to white, good for many dark/saturated backgrounds */
+  
+  /* Example shadow for better readability */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  
+  /* Fine-tuning position (might need adjustment based on editor's line height & font) */
+  /* y-monaco and y-codemirror.next usually handle positioning, but you can nudge it. */
+  /* Example: slightly above the cursor line */
+  transform: translateY(-100%) translateY(-2px); /* Move it up above the cursor line */
+  /* margin-left: 2px; /* Small offset from the cursor */
+
+  /* Transition for smooth appearance (optional) */
+  /* transition: opacity 0.1s ease-in-out; */
+}
+
+/* Specific styling for Monaco Editor's remote cursor name widget (if it uses a specific class) */
+/* Inspect your editor to find the exact classes if yRemoteCursor-name isn't targeted. */
+/* For example, y-monaco might use a class like 'yRemoteCursorInfoWidget' */
+.yMonacoRemoteCursorWidget { /* Hypothetical specific class name */
+  /* Add specific overrides for Monaco if needed */
+}
+
+/* Specific styling for CodeMirror 6 remote cursor "tooltip" (nickname) */
+/* y-codemirror.next often uses classes like .cm-ySelectionInfo for the user tag. */
+.cm-ySelectionInfo { /* More likely class name for CodeMirror name tags */
+  position: absolute;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  border-radius: 4px;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 20;
+  color: white; /* Default, as background color is set by binding */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(-100%) translateY(-2px);
+  /* Default text color if background is light (you might need JavaScript to decide this dynamically) */
+}
+
+/* If the user's background color (set by the binding) is light, white text won't work.
+   This is harder to solve with pure CSS if the background is dynamic.
+   One approach is to use a limited palette of user colors and define contrasting text colors for each.
+   Alternatively, JavaScript could be used to assess the luminance of the background color
+   and dynamically set a contrasting text color class.
+   For simplicity, we'll assume the bindings choose reasonably dark/saturated user colors
+   where white text is acceptable, or that the nickname widget has its own consistent background.
+*/
+
+/* Example: If the nickname widget itself has a fixed background set by CSS */
+/* .yRemoteCursor-name, .cm-ySelectionInfo {
+  background-color: #333; /* Fixed dark background */
+/*  color: white;
+/*  border: 1px solid; /* Border color can be the user.color! */
+/*  border-color: var(--user-specific-color); /* This would require the binding to set a CSS variable */
+/* }
+*/

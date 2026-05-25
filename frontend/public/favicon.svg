@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06b6d4" />
+      <stop offset="50%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#4f46e5" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  <!-- Background Shield or Rounded Box -->
+  <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#brand-grad)" />
+  <!-- Collaborative Connection Dots (Micro-network) -->
+  <circle cx="7" cy="7" r="1.5" fill="#ffffff" opacity="0.8" />
+  <circle cx="17" cy="17" r="1.5" fill="#ffffff" opacity="0.8" />
+  <circle cx="17" cy="7" r="1" fill="#ffffff" opacity="0.6" />
+  <circle cx="7" cy="17" r="1" fill="#ffffff" opacity="0.6" />
+  <!-- Connecting lines -->
+  <line x1="7" y1="7" x2="17" y2="17" stroke="#ffffff" stroke-width="0.75" opacity="0.4" stroke-dasharray="1 1" />
+  <line x1="17" y1="7" x2="7" y2="17" stroke="#ffffff" stroke-width="0.75" opacity="0.4" stroke-dasharray="1 1" />
+  <!-- Code bracket symbols in center -->
+  <path d="M9 10l-2 2 2 2M15 10l2 2-2 2" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)" />
+</svg>

@@ -11,8 +11,10 @@ const documentSchema = new mongoose.Schema(
         },
 
         yjsDocumentState : {
-            type:Buffer,
-            required:[true, 'Yjs Document State is required']
+            type: Buffer,
+            required: [true, 'Yjs Document State is required'],
+            // Yjs returns Uint8Array; convert explicitly so Mongoose accepts it
+            set: (v) => (v instanceof Uint8Array ? Buffer.from(v) : v),
         }
     },
     {
