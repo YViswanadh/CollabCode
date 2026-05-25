@@ -65,7 +65,7 @@ const UserListComponent = ({ users = [] }) => {
                 />
               </span>
             </div>
-            <p className={`text-[9px] font-mono transition-colors duration-150 ${theme === 'dark' ? 'text-slate-650' : 'text-slate-400'}`}>
+            <p className={`text-[9px] font-mono transition-colors duration-150 ${theme === 'dark' ? 'text-slate-600' : 'text-slate-400'}`}>
               Yjs ID: {user.id}
             </p>
           </div>

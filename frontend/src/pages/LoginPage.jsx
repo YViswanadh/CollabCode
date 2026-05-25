@@ -69,8 +69,8 @@ export default function LoginPage() {
           onClick={toggleTheme}
           className={`absolute top-4 right-4 p-2 rounded-xl border transition-all duration-150 active:scale-95 cursor-pointer ${
             theme === 'dark'
-              ? 'bg-slate-950/40 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-905/60'
-              : 'bg-slate-50 border-slate-200 text-indigo-650 hover:text-indigo-505 hover:bg-slate-100/60'
+              ? 'bg-slate-950/40 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-900/60'
+              : 'bg-slate-50 border-slate-200 text-indigo-600 hover:text-indigo-500 hover:bg-slate-100/60'
           }`}
           title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
@@ -139,7 +139,7 @@ export default function LoginPage() {
                 placeholder="you@example.com"
                 className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-650 focus:ring-cyan-500/50 focus:border-cyan-500/50'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-cyan-500/50 focus:border-cyan-500/50'
                     : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/30 focus:border-cyan-500/40'
                 }`}
               />
@@ -161,7 +161,7 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-650 focus:ring-cyan-500/50 focus:border-cyan-500/50'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-cyan-500/50 focus:border-cyan-500/50'
                     : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/30 focus:border-cyan-500/40'
                 }`}
               />

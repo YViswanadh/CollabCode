@@ -82,8 +82,8 @@ export default function LandingPage() {
             onClick={toggleTheme}
             className={`p-2.5 rounded-xl border transition-all duration-150 active:scale-95 cursor-pointer ${
               theme === 'dark'
-                ? 'bg-slate-900/60 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-805/40'
-                : 'bg-slate-100/80 border-slate-200 text-indigo-600 hover:text-indigo-505 hover:bg-slate-200/40 shadow-sm'
+                ? 'bg-slate-900/60 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-800/40'
+                : 'bg-slate-100/80 border-slate-200 text-indigo-600 hover:text-indigo-500 hover:bg-slate-200/40 shadow-sm'
             }`}
             title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
           >
@@ -101,7 +101,7 @@ export default function LandingPage() {
           {currentUser ? (
             <Link
               to="/workspace"
-              className="px-5 py-2.5 text-xs rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-650 hover:from-cyan-405 hover:to-indigo-555 text-white font-extrabold shadow-lg shadow-cyan-500/25 active:scale-95 transition-all duration-150 cursor-pointer"
+              className="px-5 py-2.5 text-xs rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold shadow-lg shadow-cyan-500/25 active:scale-95 transition-all duration-150 cursor-pointer"
             >
               Go to Workspace
             </Link>
@@ -111,7 +111,7 @@ export default function LandingPage() {
               className={`px-5 py-2.5 text-xs rounded-xl border transition-all duration-150 font-extrabold active:scale-95 cursor-pointer shadow-md ${
                 theme === 'dark'
                   ? 'bg-slate-900/60 border-slate-800 text-slate-200 hover:text-white hover:border-slate-700 hover:bg-slate-800/40 shadow-black/10'
-                  : 'bg-white border-slate-205 text-slate-700 hover:text-slate-900 hover:border-slate-350 shadow-slate-200/50'
+                  : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-slate-200/50'
               }`}
             >
               Login
@@ -162,8 +162,8 @@ export default function LandingPage() {
                   to="/login"
                   className={`px-8 py-4 rounded-2xl border transition-all duration-150 font-extrabold active:scale-95 cursor-pointer text-sm shadow-md ${
                     theme === 'dark'
-                      ? 'bg-slate-950 border-slate-800 text-slate-350 hover:text-white hover:border-slate-700 hover:bg-slate-900/40 shadow-black/10'
-                      : 'bg-white border-slate-205 text-slate-700 hover:text-slate-900 hover:border-slate-350 shadow-slate-100'
+                      ? 'bg-slate-950 border-slate-800 text-slate-300 hover:text-white hover:border-slate-700 hover:bg-slate-900/40 shadow-black/10'
+                      : 'bg-white border-slate-200 text-slate-700 hover:text-slate-900 hover:border-slate-300 shadow-slate-100'
                   }`}
                 >
                   Login to Existing Account
@@ -189,7 +189,7 @@ export default function LandingPage() {
                 {/* Tabs bar */}
                 <div className="flex items-center gap-1 ml-6 text-[10px] font-mono">
                   <span className={`px-3 py-1 rounded-t-lg border-t border-l border-r font-bold flex items-center gap-1.5 transition-colors ${
-                    theme === 'dark' ? 'bg-[#05080f]/80 border-slate-800 text-cyan-400' : 'bg-slate-100 border-slate-200 text-indigo-650'
+                    theme === 'dark' ? 'bg-[#05080f]/80 border-slate-800 text-cyan-400' : 'bg-slate-100 border-slate-200 text-indigo-600'
                   }`}>
                     <span>main.cpp</span>
                     <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
@@ -228,7 +228,7 @@ export default function LandingPage() {
                 <div className="flex-1">
                   <p className="text-purple-400"><span className="text-blue-400">#include</span> <span className="text-green-400">&lt;iostream&gt;</span></p>
                   <p className="text-blue-400">using namespace <span className="text-yellow-300">std</span>;</p>
-                  <p className="text-slate-550 mt-1.5">// Operational Transformations synchronize code character by character</p>
+                  <p className="text-slate-500 mt-1.5">// Operational Transformations synchronize code character by character</p>
                   <p className="text-blue-400">int <span className="text-yellow-400">main</span>() <span className="text-yellow-300">&#123;</span></p>
                   <p className="pl-6 text-slate-300">cout <span className="text-purple-400">&lt;&lt;</span> <span className="text-orange-300">"Hello World from real-time syncing!"</span> <span className="text-purple-400">&lt;&lt;</span> endl;</p>
                   <p className="pl-6 text-blue-400">return <span className="text-cyan-400">0</span>;</p>
@@ -246,7 +246,7 @@ export default function LandingPage() {
               Designed for Seamless Engineering
             </h3>
             <p className={`text-sm max-w-xl mx-auto transition-colors duration-150 leading-relaxed ${
-              theme === 'dark' ? 'text-slate-450' : 'text-slate-500'
+              theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
             }`}>
               Everything you need for efficient pair programming, coding interview setups, and clean group debugging sessions.
             </p>
@@ -256,8 +256,8 @@ export default function LandingPage() {
             {/* Feature 1 */}
             <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
               theme === 'dark'
-                ? 'bg-slate-900/10 border-slate-808/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-350 shadow-slate-100 shadow-lg'
+                ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
+                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
               <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400 mb-6">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -273,8 +273,8 @@ export default function LandingPage() {
             {/* Feature 2 */}
             <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
               theme === 'dark'
-                ? 'bg-slate-900/10 border-slate-808/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-350 shadow-slate-100 shadow-lg'
+                ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
+                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
               <div className="w-12 h-12 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 mb-6">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -290,8 +290,8 @@ export default function LandingPage() {
             {/* Feature 3 */}
             <div className={`p-8 border rounded-3xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl shadow-md ${
               theme === 'dark'
-                ? 'bg-slate-900/10 border-slate-808/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
-                : 'bg-white border-slate-200/80 hover:border-slate-350 shadow-slate-100 shadow-lg'
+                ? 'bg-slate-900/10 border-slate-800/80 hover:bg-slate-900/20 hover:border-slate-700 shadow-black/5'
+                : 'bg-white border-slate-200/80 hover:border-slate-300 shadow-slate-100 shadow-lg'
             }`}>
               <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-6">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -317,8 +317,8 @@ export default function LandingPage() {
             {['React.js', 'Yjs WebSockets', 'Node.js & Express', 'MongoDB', 'Socket.IO', 'TailwindCSS v4', 'Monaco Editor'].map((tech) => (
               <span key={tech} className={`px-4 py-2.5 rounded-2xl border text-xs font-mono font-bold shadow-sm transition-all duration-150 hover:scale-[1.03] ${
                 theme === 'dark'
-                  ? 'bg-slate-905/40 border-slate-805 text-slate-350 hover:text-white'
-                  : 'bg-white border-slate-205 text-slate-600 hover:text-slate-800'
+                  ? 'bg-slate-900/40 border-slate-800 text-slate-300 hover:text-white'
+                  : 'bg-white border-slate-200 text-slate-600 hover:text-slate-800'
               }`}>
                 {tech}
               </span>
@@ -343,7 +343,7 @@ export default function LandingPage() {
           </p>
           <Link
             to="/feedback"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-650 hover:from-cyan-405 hover:to-indigo-555 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
@@ -355,7 +355,7 @@ export default function LandingPage() {
 
       {/* ── Footer ── */}
       <footer className={`border-t text-center py-6 text-xs font-mono tracking-wide mt-auto transition-colors duration-300 relative z-10 ${
-        theme === 'dark' ? 'bg-[#04060a] border-slate-900 text-slate-650' : 'bg-slate-50 border-slate-200/60 text-slate-450 shadow-inner'
+        theme === 'dark' ? 'bg-[#04060a] border-slate-900 text-slate-600' : 'bg-slate-50 border-slate-200/60 text-slate-400 shadow-inner'
       }`}>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-6 mb-2">
           <span>COLLABCODE &copy; {new Date().getFullYear()}</span>

@@ -65,7 +65,7 @@ export default function TerminalDrawer({
               className={`px-2.5 py-1 rounded border transition text-[10px] font-bold font-mono uppercase tracking-wider ${
                 theme === 'dark'
                   ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-100 hover:border-slate-700'
-                  : 'bg-slate-100 border-slate-200 text-slate-500 hover:text-slate-800 hover:border-slate-350'
+                  : 'bg-slate-100 border-slate-200 text-slate-500 hover:text-slate-800 hover:border-slate-300'
               }`}
               title="Copy Output"
             >
@@ -134,7 +134,7 @@ export default function TerminalDrawer({
         {activeTab === 'output' && (
           <div className="h-full flex flex-col gap-2 min-h-0">
             {isExecuting ? (
-              <div className="flex-1 flex flex-col items-center justify-center gap-3 py-6 text-slate-550">
+              <div className="flex-1 flex flex-col items-center justify-center gap-3 py-6 text-slate-500">
                 <div className="w-6 h-6 rounded-full border-2 border-cyan-500 border-t-transparent animate-spin" />
                 <p className="animate-pulse">Compiling script and executing sandbox environment…</p>
               </div>
@@ -202,7 +202,7 @@ export default function TerminalDrawer({
               theme === 'dark' ? 'bg-slate-950/50 border-slate-800/60' : 'bg-slate-50 border-slate-200/50'
             }`}>
               <span className={`text-[9px] uppercase tracking-wider font-bold ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>Termination Signal</span>
-              <span className={`font-bold text-sm ${signal === 'None' ? (theme === 'dark' ? 'text-slate-400' : 'text-slate-500') : 'text-amber-450 animate-pulse'}`}>{signal}</span>
+              <span className={`font-bold text-sm ${signal === 'None' ? (theme === 'dark' ? 'text-slate-400' : 'text-slate-500') : 'text-amber-400 animate-pulse'}`}>{signal}</span>
             </div>
             <div className={`p-3.5 rounded-xl border flex flex-col gap-1 ${
               theme === 'dark' ? 'bg-[#0e1628]/30 border-slate-800/60' : 'bg-slate-100/40 border-slate-200/50'

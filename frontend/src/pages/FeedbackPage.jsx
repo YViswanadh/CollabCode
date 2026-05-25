@@ -59,7 +59,7 @@ export default function FeedbackPage() {
           className={`p-2.5 rounded-xl border transition-all duration-150 active:scale-95 cursor-pointer ${
             theme === 'dark'
               ? 'bg-slate-900/60 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-800/40'
-              : 'bg-white border-slate-205 text-indigo-600 hover:text-indigo-500 hover:bg-slate-100/60 shadow-sm'
+              : 'bg-white border-slate-200 text-indigo-600 hover:text-indigo-500 hover:bg-slate-100/60 shadow-sm'
           }`}
           title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
@@ -109,7 +109,7 @@ export default function FeedbackPage() {
             <div className="pt-4 flex items-center justify-center gap-4">
               <Link
                 to={currentUser ? '/workspace' : '/'}
-                className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-650 hover:from-cyan-405 hover:to-indigo-555 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
+                className="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
               >
                 {currentUser ? 'Return to Workspace' : 'Go to Homepage'}
               </Link>
@@ -118,7 +118,7 @@ export default function FeedbackPage() {
         ) : !currentUser ? (
           /* Unauthenticated Shield Screen */
           <div className="text-center py-6 space-y-6">
-            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-450 flex items-center justify-center mx-auto mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4">
               <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
@@ -135,7 +135,7 @@ export default function FeedbackPage() {
               <Link
                 to="/login"
                 state={{ from: { pathname: '/feedback' } }}
-                className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-650 hover:from-cyan-405 hover:to-indigo-555 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-md shadow-cyan-500/20 active:scale-95 transition-all duration-150 cursor-pointer"
               >
                 Sign In to Review
               </Link>
@@ -144,7 +144,7 @@ export default function FeedbackPage() {
                 className={`w-full sm:w-auto px-6 py-3 rounded-2xl border transition-all duration-150 font-bold active:scale-95 text-xs ${
                   theme === 'dark'
                     ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
-                    : 'bg-white border-slate-200 text-slate-655 hover:text-slate-800 shadow-sm'
+                    : 'bg-white border-slate-200 text-slate-600 hover:text-slate-800 shadow-sm'
                 }`}
               >
                 Back to Safety
@@ -195,7 +195,7 @@ export default function FeedbackPage() {
                         <svg
                           className={`w-9 h-9 transition-colors duration-150 ${
                             isActive
-                              ? 'text-amber-450 drop-shadow-[0_0_8px_rgba(245,158,11,0.35)]'
+                              ? 'text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.35)]'
                               : theme === 'dark'
                                 ? 'text-slate-800'
                                 : 'text-slate-200'
@@ -241,8 +241,8 @@ export default function FeedbackPage() {
                   placeholder="Tell us what you like, or what compilers and lock mechanisms could be upgraded next..."
                   className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 resize-none ${
                     theme === 'dark'
-                      ? 'bg-slate-950 border-slate-805 text-slate-100 placeholder:text-slate-655 focus:ring-cyan-500/50 focus:border-cyan-500/50'
-                      : 'bg-slate-50 border-slate-205 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/30 focus:border-cyan-500/40'
+                      ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-cyan-500/50 focus:border-cyan-500/50'
+                      : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/30 focus:border-cyan-500/40'
                   }`}
                 />
                 <div className="flex items-center justify-between text-[10px] text-slate-500 px-1 font-mono">
@@ -272,7 +272,7 @@ export default function FeedbackPage() {
                   className={`py-3.5 px-6 rounded-2xl border transition-all duration-150 font-bold active:scale-95 text-sm text-center cursor-pointer ${
                     theme === 'dark'
                       ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
-                      : 'bg-white border-slate-200 text-slate-655 hover:text-slate-800 shadow-sm'
+                      : 'bg-white border-slate-200 text-slate-600 hover:text-slate-800 shadow-sm'
                   }`}
                 >
                   Cancel

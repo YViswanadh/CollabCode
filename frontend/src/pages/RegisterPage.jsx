@@ -94,8 +94,8 @@ export default function RegisterPage() {
           onClick={toggleTheme}
           className={`absolute top-4 right-4 p-2 rounded-xl border transition-all duration-150 active:scale-95 cursor-pointer ${
             theme === 'dark'
-              ? 'bg-slate-950/40 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-905/60'
-              : 'bg-slate-50 border-slate-200 text-indigo-650 hover:text-indigo-505 hover:bg-slate-100/60'
+              ? 'bg-slate-950/40 border-slate-800 text-amber-400 hover:text-amber-300 hover:bg-slate-900/60'
+              : 'bg-slate-50 border-slate-200 text-indigo-600 hover:text-indigo-500 hover:bg-slate-100/60'
           }`}
           title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
         >
@@ -164,7 +164,7 @@ export default function RegisterPage() {
                 placeholder="e.g. Alex Chen"
                 className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-655 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-indigo-500/50 focus:border-indigo-500/50'
                     : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                 }`}
               />
@@ -189,7 +189,7 @@ export default function RegisterPage() {
                 placeholder="you@example.com"
                 className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-655 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-indigo-500/50 focus:border-indigo-500/50'
                     : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                 }`}
               />
@@ -211,7 +211,7 @@ export default function RegisterPage() {
                 placeholder="Min. 6 characters"
                 className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-655 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-indigo-500/50 focus:border-indigo-500/50'
                     : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                 }`}
               />
@@ -256,11 +256,11 @@ export default function RegisterPage() {
                 rows="2"
                 className={`w-full px-4 py-2.5 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 resize-none ${
                   theme === 'dark'
-                    ? 'bg-slate-950 border-slate-805 text-slate-100 placeholder:text-slate-655 focus:ring-indigo-500/50 focus:border-indigo-500/50'
-                    : 'bg-slate-50 border-slate-205 text-slate-800 placeholder:text-slate-400 focus:ring-indigo-500/30 focus:border-indigo-500/40'
+                    ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                    : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                 }`}
               />
-              <div className="text-right text-[9px] text-slate-550 font-mono">
+              <div className="text-right text-[9px] text-slate-500 font-mono">
                 {form.bio.length}/200
               </div>
             </div>
@@ -278,8 +278,8 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                     theme === 'dark'
-                      ? 'bg-slate-950 border-slate-805 text-slate-100 focus:ring-indigo-500/50 focus:border-indigo-500/50'
-                      : 'bg-slate-50 border-slate-205 text-slate-800 focus:ring-indigo-500/30 focus:border-indigo-500/40'
+                      ? 'bg-slate-950 border-slate-800 text-slate-100 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                      : 'bg-slate-50 border-slate-200 text-slate-800 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                   }`}
                 >
                   <option value="beginner">Beginner</option>
@@ -300,8 +300,8 @@ export default function RegisterPage() {
                   onChange={handleChange}
                   className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
                     theme === 'dark'
-                      ? 'bg-slate-950 border-slate-805 text-slate-100 focus:ring-indigo-500/50 focus:border-indigo-500/50'
-                      : 'bg-slate-50 border-slate-205 text-slate-800 focus:ring-indigo-500/30 focus:border-indigo-500/40'
+                      ? 'bg-slate-950 border-slate-800 text-slate-100 focus:ring-indigo-500/50 focus:border-indigo-500/50'
+                      : 'bg-slate-50 border-slate-200 text-slate-800 focus:ring-indigo-500/30 focus:border-indigo-500/40'
                   }`}
                 >
                   <option value="user">Standard User</option>
@@ -315,7 +315,7 @@ export default function RegisterPage() {
               disabled={loading}
               className={`w-full py-3.5 mt-2 rounded-2xl font-extrabold text-sm shadow-lg active:scale-[0.98] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2 cursor-pointer ${
                 theme === 'dark'
-                  ? 'bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 hover:from-indigo-505 hover:to-cyan-400 text-white shadow-indigo-500/20'
+                  ? 'bg-gradient-to-r from-indigo-600 via-blue-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white shadow-indigo-500/20'
                   : 'bg-[#7c3aed] text-white hover:bg-[#6d28d9] shadow-indigo-500/10'
               }`}
             >
@@ -334,7 +334,7 @@ export default function RegisterPage() {
             Already have an account?{' '}
             <Link
               to="/login"
-              className="text-indigo-550 hover:text-indigo-450 font-bold transition duration-150"
+              className="text-indigo-500 hover:text-indigo-400 font-bold transition duration-150"
             >
               Sign in
             </Link>
