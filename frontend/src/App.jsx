@@ -609,6 +609,26 @@ function Workspace() {
             </div>
           )}
         </div>
+        
+        {/* Invite Button at the bottom of the sidebar (matching the mockup design) */}
+        <div className="mt-4 pt-4 border-t border-slate-800/20 dark:border-slate-900/40 shrink-0">
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(window.location.href);
+              alert("Workspace room link copied to clipboard!");
+            }}
+            className={`w-full py-3.5 rounded-2xl font-extrabold text-xs uppercase tracking-wider font-mono active:scale-[0.97] transition-all duration-200 cursor-pointer shadow-lg flex items-center justify-center gap-2 ${
+              theme === 'dark'
+                ? 'bg-[#ccff00] text-[#050811] hover:bg-[#b8e600] shadow-[#ccff00]/10 border border-[#ccff00]/20'
+                : 'bg-[#7c3aed] text-white hover:bg-[#6d28d9] shadow-indigo-500/10'
+            }`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+            </svg>
+            <span>Invite</span>
+          </button>
+        </div>
       </div>
     );
   };
@@ -632,12 +652,14 @@ function Workspace() {
   return (
     <div className={`min-h-screen flex flex-col font-sans transition-colors duration-300 animate-page-transition relative overflow-hidden ${
       theme === 'dark'
-        ? 'bg-[#080c14] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200'
+        ? 'bg-[#050811] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200'
         : 'bg-[#f8fafc] text-slate-800 selection:bg-indigo-500/20 selection:text-indigo-900'
     }`}>
       {/* ── Technical Grid Mesh Background ── */}
-      <div className={`absolute inset-0 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none z-0 transition-opacity duration-300 ${
-        theme === 'dark' ? 'opacity-[0.04]' : 'opacity-[0.02]'
+      <div className={`absolute inset-0 pointer-events-none z-0 transition-opacity duration-300 [background-size:20px_20px] ${
+        theme === 'dark'
+          ? 'bg-[radial-gradient(rgba(6,182,212,0.06)_1.5px,transparent_1.5px)]'
+          : 'bg-[radial-gradient(rgba(99,102,241,0.05)_1.5px,transparent_1.5px)]'
       }`} />
 
       {/* ── Corner Pulsing Lights ── */}
@@ -647,7 +669,7 @@ function Workspace() {
       {/* ── Header ── */}
       <header className={`sticky top-0 z-40 w-full backdrop-blur-xl border-b px-4 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between shadow-lg transition-all duration-300 ${
         theme === 'dark'
-          ? 'bg-[#080c14]/80 border-slate-800/80 shadow-cyan-950/5'
+          ? 'bg-[#050811]/85 border-slate-900/80 shadow-cyan-950/5'
           : 'bg-[#ffffff]/80 border-slate-200/80 shadow-slate-100/60'
       }`}>
         <Link to="/" className="flex items-center gap-3 active:scale-98 transition duration-150 cursor-pointer">
@@ -824,7 +846,7 @@ function Workspace() {
           <div className="flex-1 flex flex-col gap-3 min-h-[70vh]">
             {/* Toolbar */}
             <div className={`w-full border rounded-3xl p-2.5 sm:p-3 flex flex-col sm:flex-row items-center justify-between gap-3 backdrop-blur-md transition-all duration-300 ${
-              theme === 'dark' ? 'bg-slate-900/30 border-slate-800/80 shadow-xl shadow-black/10' : 'bg-white border-slate-200/80 shadow-slate-200/30 shadow-lg'
+              theme === 'dark' ? 'bg-[#0b0f19]/45 border-slate-900/80 shadow-xl shadow-black/10' : 'bg-white/75 border-slate-200/80 shadow-slate-200/30 shadow-lg'
             }`}>
               <div className="flex items-center gap-3">
                 <div className={`px-3 py-1.5 rounded-xl border text-xs font-mono transition-colors duration-150 ${
@@ -973,7 +995,7 @@ function Workspace() {
 
               {/* Desktop tabbed utility sidebar */}
               <div className={`hidden lg:block lg:col-span-1 border rounded-3xl p-4 overflow-y-auto shadow-xl transition-all duration-300 ${
-                theme === 'dark' ? 'bg-slate-900/20 border-slate-800/80 shadow-black/10' : 'bg-white border-slate-200/80 shadow-slate-200/30 shadow-lg'
+                theme === 'dark' ? 'bg-[#0b0f19]/35 border-slate-900/80 shadow-black/10' : 'bg-white/75 border-slate-200/80 shadow-slate-200/30 shadow-lg'
               }`}>
                 {renderSidebarContent(false)}
               </div>

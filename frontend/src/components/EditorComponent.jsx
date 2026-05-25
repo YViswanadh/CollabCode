@@ -136,44 +136,25 @@ const EditorComponent = ({
             .yRemoteSelectionHead-${clientID}::after {
               content: "${escapedName}" !important;
               position: absolute !important;
-              top: 22px !important; /* Move below the cursor bar */
-              left: -2px !important;
+              top: 19px !important; /* Positioned directly below the editor caret line */
+              left: 0px !important;
               background-color: ${userColor} !important;
               color: ${contrastTextColor} !important;
-              padding: 2px 6px !important;
-              border-radius: 0 3px 3px 3px !important; /* Rounded corners to match standard bottom-right tooltip style */
-              font-size: 10px !important;
+              padding: 1px 4.5px !important;
+              border-radius: 2px !important; /* Flat, sleek rectangular badge */
+              font-size: 9px !important;
               font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-              font-weight: 600 !important;
+              font-weight: 700 !important;
               white-space: nowrap !important;
               pointer-events: none !important;
               z-index: 1000 !important;
-              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-              opacity: 0.85 !important;
+              box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+              opacity: 0.9 !important;
               transition: opacity 0.15s ease-in-out !important;
             }
 
-            /* Custom Color-Matched Pointer Arrow pointing UP for Client ${clientID} */
-            .yRemoteSelectionHead-${clientID}::before {
-              content: "" !important;
-              position: absolute !important;
-              top: 18px !important; /* Arrow pointing up from top edge of bubble */
-              left: 0px !important;
-              border-width: 0 4px 4px !important;
-              border-style: solid !important;
-              border-color: transparent transparent ${userColor} !important;
-              display: block !important;
-              width: 0 !important;
-              height: 0 !important;
-              z-index: 1000 !important;
-              opacity: 0.85 !important;
-              pointer-events: none !important;
-              transition: opacity 0.15s ease-in-out !important;
-            }
-
-            /* Fully opaque name tag and arrow when hovered */
-            .yRemoteSelectionHead-${clientID}:hover::after,
-            .yRemoteSelectionHead-${clientID}:hover::before {
+            /* Fully opaque name tag when hovered */
+            .yRemoteSelectionHead-${clientID}:hover::after {
               opacity: 1 !important;
             }
           `;
