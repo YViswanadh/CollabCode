@@ -9,11 +9,11 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import LandingPage from './pages/LandingPage';
-import FeedbackPage from './pages/FeedbackPage';
 import AdminDashboard from './pages/AdminDashboard';
 import EditorComponent from './components/EditorComponent';
 import UserListComponent from './components/UserListComponent';
 import TerminalDrawer from './components/TerminalDrawer';
+import { submitFeedback } from './api/feedbackApi';
 import './EditorStyles.css';
 
 const MAIN_APP_SERVER_URL = 'http://localhost:3001';
@@ -50,6 +50,14 @@ function Workspace() {
   const [myClientId, setMyClientId] = useState(null); // local Yjs clientID
   const [currentLanguage, setCurrentLanguage] = useState('javascript');
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  // Exit Feedback Modal States
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [disconnectRating, setDisconnectRating] = useState(0);
+  const [disconnectHoverRating, setDisconnectHoverRating] = useState(0);
+  const [disconnectComments, setDisconnectComments] = useState('');
+  const [disconnectError, setDisconnectError] = useState('');
+  const [disconnectLoading, setDisconnectLoading] = useState(false);
 
   // Phase 4 States
   const [sidebarTab, setSidebarTab] = useState('chat'); // 'chat' | 'users' | 'preferences'
@@ -386,7 +394,7 @@ function Workspace() {
   }, [currentRoomId, token, currentUser.displayName, currentUser.userId, userColor]);
 
   // ── Multi-Tab Sidebar Content Helper ───────────────────────────────────────
-  const renderSidebarContent = (isMobile = false) => {
+  function renderSidebarContent(isMobile = false) {
     return (
       <div className="flex flex-col h-full">
         {/* Navigation Tabs */}
@@ -631,7 +639,7 @@ function Workspace() {
         </div>
       </div>
     );
-  };
+  }
 
   const handleJoinRoom = (e) => {
     e.preventDefault();
@@ -641,7 +649,41 @@ function Workspace() {
     setRoomIdInput('');
   };
 
-  const handleLeaveRoom = () => setCurrentRoomId(null);
+  const handleLeaveRoom = () => {
+    // Open exit diagnostics modal
+    setIsFeedbackModalOpen(true);
+  };
+
+  const handleImmediateLeave = () => {
+    setDisconnectRating(0);
+    setDisconnectHoverRating(0);
+    setDisconnectComments('');
+    setDisconnectError('');
+    setIsFeedbackModalOpen(false);
+    setCurrentRoomId(null);
+  };
+
+  const handleFeedbackSubmitAndLeave = async (e) => {
+    e.preventDefault();
+    setDisconnectError('');
+
+    if (disconnectRating === 0) {
+      return setDisconnectError('Please select a rating between 1 and 5 stars.');
+    }
+    if (disconnectComments.trim().length === 0) {
+      return setDisconnectError('Please share some comments or suggestions.');
+    }
+
+    setDisconnectLoading(true);
+    try {
+      await submitFeedback({ rating: disconnectRating, comments: disconnectComments.trim() }, token);
+      handleImmediateLeave();
+    } catch (err) {
+      setDisconnectError(err?.response?.data?.message || 'Failed to save feedback. Please try again.');
+    } finally {
+      setDisconnectLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     setCurrentRoomId(null);
@@ -1028,6 +1070,162 @@ function Workspace() {
         </div>
       )}
 
+      {/* ── Exit Diagnostics & Feedback Modal ── */}
+      {isFeedbackModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+          {/* Backdrop */}
+          <div 
+            onClick={() => setIsFeedbackModalOpen(false)} 
+            className="absolute inset-0 bg-[#04060b]/80 backdrop-blur-md animate-fade-in" 
+          />
+          
+          {/* Card Container */}
+          <div className={`relative w-full max-w-md border rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl transition-all duration-300 z-10 scale-100 ${
+            theme === 'dark'
+              ? 'bg-[#0b0f19]/90 border-slate-900 shadow-black/40'
+              : 'bg-white border-slate-200 shadow-slate-300/40 shadow-xl'
+          }`}>
+            <div className="absolute -top-12 -left-12 w-24 h-24 bg-cyan-500/5 blur-xl rounded-full" />
+            <div className="absolute -bottom-12 -right-12 w-24 h-24 bg-indigo-500/5 blur-xl rounded-full" />
+
+            <div className="text-center space-y-2 mb-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-cyan-500/10 to-blue-500/10 border border-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-3">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </div>
+              <h3 className={`text-xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>
+                Session Finished?
+              </h3>
+              <p className={`text-xs ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                Before you disconnect, let us know how your sync session went!
+              </p>
+            </div>
+
+            {disconnectError && (
+              <div className="mb-4 px-4 py-2.5 rounded-xl bg-red-500/10 border border-red-500/25 text-red-400 text-xs flex items-center gap-2 animate-pulse">
+                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{disconnectError}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleFeedbackSubmitAndLeave} className="space-y-5">
+              {/* Star selector */}
+              <div className="flex flex-col items-center justify-center space-y-1.5 select-none">
+                <div className="flex items-center gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => {
+                    const isActive = star <= (disconnectHoverRating || disconnectRating);
+                    return (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setDisconnectRating(star)}
+                        onMouseEnter={() => setDisconnectHoverRating(star)}
+                        onMouseLeave={() => setDisconnectHoverRating(0)}
+                        className="p-1 cursor-pointer transition hover:scale-110 active:scale-90"
+                      >
+                        <svg
+                          className={`w-8 h-8 transition-colors duration-150 ${
+                            isActive
+                              ? 'text-amber-400 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]'
+                              : theme === 'dark'
+                                ? 'text-slate-800'
+                                : 'text-slate-200'
+                          }`}
+                          fill={isActive ? 'currentColor' : 'none'}
+                          stroke="currentColor"
+                          strokeWidth={isActive ? '0.4' : '1.8'}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M11.48 3.499c.174-.367.697-.367.87 0l2.303 4.86c.07.147.213.25.376.274l5.228.77c.394.057.55.53.266.804l-3.784 3.69c-.118.115-.172.28-.143.444l.894 5.205c.068.393-.34.692-.686.507l-4.675-2.457a.447.447 0 00-.417 0l-4.675 2.457c-.346.185-.754-.114-.686-.507l.894-5.205a.447.447 0 00-.143-.444l-3.784-3.69c-.283-.274-.127-.747.266-.804l5.228-.77a.447.447 0 00.376-.274l2.303-4.86z"
+                          />
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
+                {disconnectRating > 0 && (
+                  <span className="text-[9px] font-mono font-extrabold text-amber-500 uppercase tracking-widest">
+                    {disconnectRating === 1 && 'Needs Work 😠'}
+                    {disconnectRating === 2 && 'Mediocre 😐'}
+                    {disconnectRating === 3 && 'Decent 🙂'}
+                    {disconnectRating === 4 && 'Great! 😃'}
+                    {disconnectRating === 5 && 'Excellent! 🚀'}
+                  </span>
+                )}
+              </div>
+
+              {/* Text Area */}
+              <div className="space-y-1">
+                <label className={`text-[9px] font-extrabold uppercase tracking-wider font-mono ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Comments / Suggestions
+                </label>
+                <textarea
+                  rows="3"
+                  maxLength="500"
+                  value={disconnectComments}
+                  onChange={(e) => setDisconnectComments(e.target.value)}
+                  placeholder="Any lag spikes, sync drops, or compiler issues? Let us know!"
+                  className={`w-full px-3.5 py-2.5 rounded-xl border transition-all duration-300 text-[11px] focus:outline-none focus:ring-2 resize-none ${
+                    theme === 'dark'
+                      ? 'bg-[#08090b] border-slate-800 text-slate-100 placeholder:text-slate-700 focus:ring-cyan-500/40 focus:border-cyan-500/45'
+                      : 'bg-slate-50 border-slate-205 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/20 focus:border-cyan-500/30'
+                  }`}
+                />
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-col gap-2 pt-2">
+                <button
+                  type="submit"
+                  disabled={disconnectLoading}
+                  className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs uppercase tracking-wider font-mono shadow-md active:scale-98 transition disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  {disconnectLoading ? (
+                    <>
+                      <div className="w-3.5 h-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin" />
+                      <span>Saving & Leaving…</span>
+                    </>
+                  ) : (
+                    'Submit & Disconnect'
+                  )}
+                </button>
+                
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={handleImmediateLeave}
+                    className={`py-2.5 rounded-xl border font-bold active:scale-95 text-xs text-center cursor-pointer ${
+                      theme === 'dark'
+                        ? 'bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200'
+                        : 'bg-white border-slate-200 text-slate-500 hover:text-slate-700 shadow-sm'
+                    }`}
+                  >
+                    Skip & Leave
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setIsFeedbackModalOpen(false)}
+                    className={`py-2.5 rounded-xl border font-bold active:scale-95 text-xs text-center cursor-pointer ${
+                      theme === 'dark'
+                        ? 'bg-slate-950 border-slate-850/80 text-slate-400 hover:text-white'
+                        : 'bg-white border-slate-200 text-slate-650 hover:text-slate-800 shadow-sm'
+                    }`}
+                  >
+                    Stay in Room
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <footer className={`mt-auto border-t text-center py-4 text-xs font-mono tracking-wide transition-colors duration-300 ${
         theme === 'dark' ? 'bg-[#04060a] border-slate-900 text-slate-600' : 'bg-slate-50 border-slate-200/60 text-slate-400 shadow-sm'
       }`}>
@@ -1044,7 +1242,7 @@ export default function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/feedback" element={<FeedbackPage />} />
+      <Route path="/feedback" element={<Navigate to="/#feedback-section" replace />} />
       <Route
         path="/workspace"
         element={

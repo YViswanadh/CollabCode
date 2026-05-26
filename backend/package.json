@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_OPTIONS=\"--no-webstorage\" jest --runInBand --detectOpenHandles --forceExit",
     "start": "nodemon server.js",
     "start-yjs": "nodemon yjs-server.js"
   },
@@ -23,6 +23,9 @@
     "y-websocket": "^1.5.4"
   },
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "jest": "^30.4.2",
+    "nodemon": "^3.1.10",
+    "socket.io-client": "^4.8.3",
+    "supertest": "^7.2.2"
   }
 }

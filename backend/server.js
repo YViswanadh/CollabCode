@@ -197,7 +197,11 @@ io.on('connection', (socket) => {
 });
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
-server.listen(PORT, () => {
-  console.log(`[Server] Main app server running on http://localhost:${PORT}`);
-  console.log(`[Server] Yjs WebSocket server should be running on ws://localhost:1234`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(PORT, () => {
+    console.log(`[Server] Main app server running on http://localhost:${PORT}`);
+    console.log(`[Server] Yjs WebSocket server should be running on ws://localhost:1234`);
+  });
+}
+
+module.exports = { server, io };
