@@ -327,7 +327,7 @@ export default function LandingPage() {
         </section>
 
         {/* ── Visual Feedback CTA section ── */}
-        <section className={`w-full max-w-4xl mt-16 mb-8 border rounded-3xl p-8 text-center relative overflow-hidden backdrop-blur-md transition-all duration-300 ${
+        <section id="feedback" className={`w-full max-w-4xl mt-16 mb-8 border rounded-3xl p-8 text-center relative overflow-hidden backdrop-blur-md transition-all duration-300 ${
           theme === 'dark'
             ? 'bg-gradient-to-tr from-cyan-950/10 to-indigo-950/10 border-slate-800/80 shadow-black/10'
             : 'bg-gradient-to-tr from-cyan-50/20 to-indigo-50/20 border-slate-200/80 shadow-slate-100 shadow-lg'

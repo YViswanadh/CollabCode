@@ -265,29 +265,43 @@ export default function RegisterPage() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1.5">
-                <label className={`text-[10px] font-extrabold uppercase tracking-wider font-mono transition-colors duration-150 ${
-                  theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
-                }`}>
-                  Experience Level
-                </label>
-                <select
-                  name="experience"
-                  value={form.experience}
-                  onChange={handleChange}
-                  className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 ${
-                    theme === 'dark'
-                      ? 'bg-slate-950 border-slate-800 text-slate-100 focus:ring-indigo-500/50 focus:border-indigo-500/50'
-                      : 'bg-slate-50 border-slate-200 text-slate-800 focus:ring-indigo-500/30 focus:border-indigo-500/40'
-                  }`}
-                >
-                  <option value="beginner">Beginner</option>
-                  <option value="intermediate">Intermediate</option>
-                  <option value="expert">Expert</option>
-                </select>
+            <div className="space-y-2">
+              <label className={`text-[10px] font-extrabold uppercase tracking-wider font-mono transition-colors duration-150 ${
+                theme === 'dark' ? 'text-slate-400' : 'text-slate-500'
+              }`}>
+                Clearance & Experience Level
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                {['beginner', 'intermediate', 'expert'].map((lvl) => {
+                  const isActive = form.experience === lvl;
+                  return (
+                    <div
+                      key={lvl}
+                      onClick={() => setForm(prev => ({ ...prev, experience: lvl }))}
+                      className={`cursor-pointer rounded-2xl border p-3 flex flex-col items-center justify-center text-center transition-all duration-200 active:scale-95 ${
+                        isActive
+                          ? theme === 'dark'
+                            ? 'bg-indigo-500/20 border-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]'
+                            : 'bg-indigo-100 border-indigo-500 shadow-[0_0_10px_rgba(99,102,241,0.3)]'
+                          : theme === 'dark'
+                            ? 'bg-slate-950 border-slate-800 hover:border-indigo-500/50'
+                            : 'bg-slate-50 border-slate-200 hover:border-indigo-300'
+                      }`}
+                    >
+                      <span className={`text-xs font-bold capitalize transition-colors duration-200 ${
+                        isActive
+                          ? theme === 'dark' ? 'text-indigo-400' : 'text-indigo-600'
+                          : theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+                      }`}>
+                        {lvl}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
+            </div>
 
+            <div className="grid grid-cols-1 gap-4 mt-4">
               <div className="space-y-1.5">
                 <label className={`text-[10px] font-extrabold uppercase tracking-wider font-mono transition-colors duration-150 ${
                   theme === 'dark' ? 'text-slate-400' : 'text-slate-500'

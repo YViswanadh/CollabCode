@@ -15,6 +15,7 @@ import EditorComponent from './components/EditorComponent';
 import UserListComponent from './components/UserListComponent';
 import TerminalDrawer from './components/TerminalDrawer';
 import './EditorStyles.css';
+import { submitFeedback } from './api/feedbackApi';
 
 const MAIN_APP_SERVER_URL = 'http://localhost:3001';
 const YJS_WEBSOCKET_SERVER_URL_BASE = 'ws://localhost:1234';
@@ -46,6 +47,12 @@ function Workspace() {
 
   const [connectionStatus, setConnectionStatus] = useState('offline');
   const [yjsConnectionStatus, setYjsConnectionStatus] = useState('disconnected');
+  const [showExitModal, setShowExitModal] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [comments, setComments] = useState('');
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
   const [activeUsers, setActiveUsers] = useState([]); // remote users only
   const [myClientId, setMyClientId] = useState(null); // local Yjs clientID
   const [currentLanguage, setCurrentLanguage] = useState('javascript');
@@ -641,7 +648,37 @@ function Workspace() {
     setRoomIdInput('');
   };
 
-  const handleLeaveRoom = () => setCurrentRoomId(null);
+  const handleLeaveRoom = () => setShowExitModal(true);
+
+  const handleDisconnectSubmit = async (e) => {
+    e.preventDefault();
+    setFeedbackError('');
+
+    if (rating === 0) {
+      return setFeedbackError('Please select a rating between 1 and 5 stars.');
+    }
+    if (comments.trim().length === 0) {
+      return setFeedbackError('Please share some comments or suggestions.');
+    }
+
+    setFeedbackLoading(true);
+    try {
+      await submitFeedback({ rating, comments: comments.trim() }, token);
+      setCurrentRoomId(null);
+      setShowExitModal(false);
+      navigate('/#feedback');
+      setTimeout(() => {
+        const feedbackSection = document.getElementById('feedback');
+        if (feedbackSection) {
+          feedbackSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500);
+    } catch (err) {
+      setFeedbackError(err?.response?.data?.message || 'Failed to submit feedback. Please try again.');
+    } finally {
+      setFeedbackLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     setCurrentRoomId(null);
@@ -1033,6 +1070,123 @@ function Workspace() {
       }`}>
         COLLABCODE WORKSPACE &copy; {new Date().getFullYear()} &bull; ALL RIGHTS RESERVED
       </footer>
+
+      {/* ── Exit Diagnostics & Feedback Overlay ── */}
+      {showExitModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fade-in">
+          <div className={`w-full max-w-md border rounded-3xl p-8 shadow-2xl relative overflow-hidden transition-all duration-300 ${
+            theme === 'dark'
+              ? 'bg-[#0b0f19]/90 border-slate-900 shadow-black/50'
+              : 'bg-white border-slate-200 shadow-slate-200/50'
+          }`}>
+            <div className="text-center mb-6">
+              <h2 className={`text-2xl font-extrabold tracking-tight ${theme === 'dark' ? 'text-slate-100' : 'text-slate-900'}`}>
+                Exit Diagnostics & Feedback
+              </h2>
+              <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                How was your sync experience?
+              </p>
+            </div>
+
+            {feedbackError && (
+              <div className="mb-5 px-4 py-3 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm flex items-center gap-2">
+                <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                {feedbackError}
+              </div>
+            )}
+
+            <form onSubmit={handleDisconnectSubmit} className="space-y-6">
+              <div className="flex flex-col items-center justify-center space-y-2 py-2">
+                <label className={`text-[10px] font-extrabold uppercase tracking-wider font-mono ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Overall System Rating
+                </label>
+                <div className="flex items-center gap-1.5">
+                  {[1, 2, 3, 4, 5].map((star) => {
+                    const isActive = star <= (hoverRating || rating);
+                    return (
+                      <button
+                        key={star}
+                        type="button"
+                        onClick={() => setRating(star)}
+                        onMouseEnter={() => setHoverRating(star)}
+                        onMouseLeave={() => setHoverRating(0)}
+                        className="p-1 cursor-pointer transition-transform duration-100 active:scale-90"
+                      >
+                        <svg
+                          className={`w-9 h-9 transition-colors duration-150 ${
+                            isActive
+                              ? 'text-yellow-400 drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]'
+                              : theme === 'dark' ? 'text-slate-800' : 'text-slate-200'
+                          }`}
+                          fill={isActive ? 'currentColor' : 'none'}
+                          stroke="currentColor"
+                          strokeWidth={isActive ? '0.5' : '1.5'}
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M11.48 3.499c.174-.367.697-.367.87 0l2.303 4.86c.07.147.213.25.376.274l5.228.77c.394.057.55.53.266.804l-3.784 3.69c-.118.115-.172.28-.143.444l.894 5.205c.068.393-.34.692-.686.507l-4.675-2.457a.447.447 0 00-.417 0l-4.675 2.457c-.346.185-.754-.114-.686-.507l.894-5.205a.447.447 0 00-.143-.444l-3.784-3.69c-.283-.274-.127-.747.266-.804l5.228-.77a.447.447 0 00.376-.274l2.303-4.86z"
+                          />
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
+                {rating > 0 && (
+                  <span className="text-xs font-mono font-bold text-amber-500 uppercase">
+                    {rating === 1 && 'Needs Work 😠'}
+                    {rating === 2 && 'Mediocre 😐'}
+                    {rating === 3 && 'Decent 🙂'}
+                    {rating === 4 && 'Great! 😃'}
+                    {rating === 5 && 'Excellent! 🚀'}
+                  </span>
+                )}
+              </div>
+
+              <div className="space-y-1.5">
+                <label className={`text-[10px] font-extrabold uppercase tracking-wider font-mono ${theme === 'dark' ? 'text-slate-400' : 'text-slate-500'}`}>
+                  Comments or Suggestions
+                </label>
+                <textarea
+                  rows="3"
+                  value={comments}
+                  onChange={(e) => setComments(e.target.value)}
+                  placeholder="Any thoughts on the editor performance, latency, or visual theme?"
+                  className={`w-full px-4 py-3 rounded-2xl border transition-all duration-200 text-sm focus:outline-none focus:ring-2 resize-none ${
+                    theme === 'dark'
+                      ? 'bg-slate-950 border-slate-800 text-slate-100 placeholder:text-slate-600 focus:ring-cyan-500/50 focus:border-cyan-500/50'
+                      : 'bg-slate-50 border-slate-200 text-slate-800 placeholder:text-slate-400 focus:ring-cyan-500/30 focus:border-cyan-500/40'
+                  }`}
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowExitModal(false)}
+                  className={`flex-1 py-3 px-4 rounded-2xl border transition-all duration-150 font-bold active:scale-95 text-xs text-center cursor-pointer ${
+                    theme === 'dark'
+                      ? 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                      : 'bg-white border-slate-200 text-slate-600 hover:text-slate-800 shadow-sm'
+                  }`}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={feedbackLoading}
+                  className="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-extrabold text-xs shadow-lg active:scale-[0.98] transition-all duration-150 disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer flex justify-center items-center"
+                >
+                  {feedbackLoading ? 'Saving...' : 'Submit & Disconnect'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
